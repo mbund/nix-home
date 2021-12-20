@@ -1,0 +1,94 @@
+{
+  "nodes": {
+    "cli": {
+      "inputs": {
+        "nixpkgs": "nixpkgs",
+        "zsh-syntax-highlighting": "zsh-syntax-highlighting"
+      },
+      "locked": {
+        "narHash": "sha256-ZoNASNG8Rt4uaXn1nvogWkAJQoBNSoD6iHsi77lwkuc=",
+        "path": "/nix/store/bg80yqic3m0w7bsxm29nl80vxaz8jazx-source/cli",
+        "type": "path"
+      },
+      "original": {
+        "path": "/nix/store/bg80yqic3m0w7bsxm29nl80vxaz8jazx-source/cli",
+        "type": "path"
+      }
+    },
+    "home-manager": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1639891275,
+        "narHash": "sha256-2IMLVTtOHV9kBsirGPRpo8NE48Mjq20iXN7l7uy0YjE=",
+        "owner": "nix-community",
+        "repo": "home-manager",
+        "rev": "3db603677509eb0b8c396a3234b1d4b70d023894",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nix-community",
+        "repo": "home-manager",
+        "type": "github"
+      }
+    },
+    "nixpkgs": {
+      "locked": {
+        "lastModified": 1639985577,
+        "narHash": "sha256-QqnQ7rFBxnD/rR9RNTUq88H4JaI70L5Iog4CK+ZhbOk=",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "8021ed2090498ff171ad339c2b2eac73d4755a13",
+        "type": "github"
+      },
+      "original": {
+        "id": "nixpkgs",
+        "ref": "nixpkgs-unstable",
+        "type": "indirect"
+      }
+    },
+    "nixpkgs_2": {
+      "locked": {
+        "lastModified": 1639985577,
+        "narHash": "sha256-QqnQ7rFBxnD/rR9RNTUq88H4JaI70L5Iog4CK+ZhbOk=",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "8021ed2090498ff171ad339c2b2eac73d4755a13",
+        "type": "github"
+      },
+      "original": {
+        "id": "nixpkgs",
+        "ref": "nixpkgs-unstable",
+        "type": "indirect"
+      }
+    },
+    "root": {
+      "inputs": {
+        "cli": "cli",
+        "home-manager": "home-manager",
+        "nixpkgs": "nixpkgs_2"
+      }
+    },
+    "zsh-syntax-highlighting": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1636857900,
+        "narHash": "sha256-MeuPqDeJpbJi2hT7VUgyQNSmDPY/biUncvyY78IBfzM=",
+        "owner": "zsh-users",
+        "repo": "zsh-syntax-highlighting",
+        "rev": "c7caf57ca805abd54f11f756fda6395dd4187f8a",
+        "type": "github"
+      },
+      "original": {
+        "owner": "zsh-users",
+        "repo": "zsh-syntax-highlighting",
+        "type": "github"
+      }
+    }
+  },
+  "root": "root",
+  "version": 7
+}

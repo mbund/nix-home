@@ -1,8 +1,6 @@
 {
   description = "mbund's home-manager profile";
-  # install with `nix run home-manager --no-write-lock-file -- switch --flake "./users/mbund#mbund"`
-  # update with `home-manager switch --flake "./users/mbund#mbund"`
-
+  
   inputs = {
     nixpkgs.url = "nixpkgs/nixpkgs-unstable";
 
