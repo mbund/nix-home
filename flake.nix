@@ -29,7 +29,21 @@
             neofetch
             vscodium
             file
+	          virt-manager
+	          godot
           ];
+
+          gtk = {
+            enable = true;
+            theme = {
+              name = "Breeze";
+              package = pkgs.gnome-breeze;
+            };
+            iconTheme = {
+              name = "Breeze";
+              package = pkgs.gnome.adwaita-icon-theme;
+            };
+          };
 
           programs.home-manager.enable = true;
         });

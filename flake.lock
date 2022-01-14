@@ -7,11 +7,11 @@
       },
       "locked": {
         "narHash": "sha256-ZoNASNG8Rt4uaXn1nvogWkAJQoBNSoD6iHsi77lwkuc=",
-        "path": "/nix/store/bg80yqic3m0w7bsxm29nl80vxaz8jazx-source/cli",
+        "path": "/nix/store/d5fgvvsnzgyc6isy52rh2xmsg524kf5m-source/cli",
         "type": "path"
       },
       "original": {
-        "path": "/nix/store/bg80yqic3m0w7bsxm29nl80vxaz8jazx-source/cli",
+        "path": "/nix/store/d5fgvvsnzgyc6isy52rh2xmsg524kf5m-source/cli",
         "type": "path"
       }
     },
