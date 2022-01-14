@@ -1,19 +1,20 @@
 {
-  description = "CLI configuration";
+  description = "Command Line Interface";
 
   inputs = {
-    nixpkgs.url = "nixpkgs/nixpkgs-unstable";
-
     zsh-syntax-highlighting = {
       url = "github:zsh-users/zsh-syntax-highlighting";
       flake = false;
     };
   };
 
-  outputs = { self, ... }@inputs: {
+  outputs = { self, ... } @ inputs: {
     home = { config, lib, pkgs, ... }: {
       home.packages = with pkgs; [
         ranger
+        neofetch
+        neovim
+        file
 
         (nerdfonts.override { fonts = [ "Hasklig" ]; })
       ];

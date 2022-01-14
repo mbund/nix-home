@@ -34,7 +34,9 @@
     },
     "home-manager": {
       "inputs": {
-        "nixpkgs": "nixpkgs_2"
+        "nixpkgs": [
+          "nixpkgs"
+        ]
       },
       "locked": {
         "lastModified": 1642117744,
@@ -48,23 +50,6 @@
         "owner": "nix-community",
         "repo": "home-manager",
         "type": "github"
-      }
-    },
-    "marshmellow-roaster": {
-      "inputs": {
-        "cli": "cli",
-        "common": "common",
-        "home-manager": "home-manager",
-        "plasma": "plasma"
-      },
-      "locked": {
-        "narHash": "sha256-KrzGBSh6kxmC1FqkBJ93q2a9XEsVHacnsgEtrDlwiUI=",
-        "path": "/nix/store/ps0byjfxwfpb3ig6k7b1irfh33pz2w01-source/marshmellow-roaster",
-        "type": "path"
-      },
-      "original": {
-        "path": "/nix/store/ps0byjfxwfpb3ig6k7b1irfh33pz2w01-source/marshmellow-roaster",
-        "type": "path"
       }
     },
     "nixpkgs": {
@@ -98,7 +83,6 @@
     "plasma": {
       "inputs": {
         "nixpkgs": [
-          "marshmellow-roaster",
           "plasma",
           "nixpkgs"
         ]
@@ -118,7 +102,11 @@
     },
     "root": {
       "inputs": {
-        "marshmellow-roaster": "marshmellow-roaster"
+        "cli": "cli",
+        "common": "common",
+        "home-manager": "home-manager",
+        "nixpkgs": "nixpkgs_2",
+        "plasma": "plasma"
       }
     },
     "zsh-syntax-highlighting": {
