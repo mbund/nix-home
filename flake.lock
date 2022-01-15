@@ -2,13 +2,12 @@
   "nodes": {
     "cli": {
       "inputs": {
-        "nixpkgs": "nixpkgs",
         "zsh-syntax-highlighting": "zsh-syntax-highlighting"
       },
       "locked": {
         "dir": "cli",
-        "lastModified": 1642133626,
-        "narHash": "sha256-UDu//vFKsw/JO/6mpePYMVL6rlOcWLeRm0O9YJqtWKU=",
+        "lastModified": 1642203739,
+        "narHash": "sha256-wv4pncEo+12k+lGmCKuTSmCaxV+c8LMw4EqgnqB2oTU=",
         "type": "git",
         "url": "file:///home/mbund/nix-home"
       },
@@ -21,8 +20,8 @@
     "common": {
       "locked": {
         "dir": "common",
-        "lastModified": 1642133626,
-        "narHash": "sha256-UDu//vFKsw/JO/6mpePYMVL6rlOcWLeRm0O9YJqtWKU=",
+        "lastModified": 1642203739,
+        "narHash": "sha256-wv4pncEo+12k+lGmCKuTSmCaxV+c8LMw4EqgnqB2oTU=",
         "type": "git",
         "url": "file:///home/mbund/nix-home"
       },
@@ -34,7 +33,7 @@
     },
     "home-manager": {
       "inputs": {
-        "nixpkgs": "nixpkgs_2"
+        "nixpkgs": "nixpkgs"
       },
       "locked": {
         "lastModified": 1642117744,
@@ -58,12 +57,12 @@
         "plasma": "plasma"
       },
       "locked": {
-        "narHash": "sha256-KrzGBSh6kxmC1FqkBJ93q2a9XEsVHacnsgEtrDlwiUI=",
-        "path": "/nix/store/ps0byjfxwfpb3ig6k7b1irfh33pz2w01-source/marshmellow-roaster",
+        "narHash": "sha256-ncosI+5ZfqW8qkp63BVnJajZO/CXER2t+YUxb1/ytkA=",
+        "path": "/nix/store/3dzk75ps3ys5c2s9mcg16x64mib3k1gx-source/marshmellow-roaster",
         "type": "path"
       },
       "original": {
-        "path": "/nix/store/ps0byjfxwfpb3ig6k7b1irfh33pz2w01-source/marshmellow-roaster",
+        "path": "/nix/store/3dzk75ps3ys5c2s9mcg16x64mib3k1gx-source/marshmellow-roaster",
         "type": "path"
       }
     },
@@ -81,32 +80,11 @@
         "type": "indirect"
       }
     },
-    "nixpkgs_2": {
-      "locked": {
-        "lastModified": 1641939011,
-        "narHash": "sha256-a0z5+KgAFkqrDSFI9dl80GpnvtCgWnEHMewASkGrSE0=",
-        "owner": "NixOS",
-        "repo": "nixpkgs",
-        "rev": "1b29f6fdb8ca9389f5000f479cdec42ceb67e161",
-        "type": "github"
-      },
-      "original": {
-        "id": "nixpkgs",
-        "type": "indirect"
-      }
-    },
     "plasma": {
-      "inputs": {
-        "nixpkgs": [
-          "marshmellow-roaster",
-          "plasma",
-          "nixpkgs"
-        ]
-      },
       "locked": {
         "dir": "plasma",
-        "lastModified": 1642133626,
-        "narHash": "sha256-UDu//vFKsw/JO/6mpePYMVL6rlOcWLeRm0O9YJqtWKU=",
+        "lastModified": 1642203739,
+        "narHash": "sha256-wv4pncEo+12k+lGmCKuTSmCaxV+c8LMw4EqgnqB2oTU=",
         "type": "git",
         "url": "file:///home/mbund/nix-home"
       },
