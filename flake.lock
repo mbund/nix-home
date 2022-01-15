@@ -6,10 +6,9 @@
       },
       "locked": {
         "dir": "cli",
-        "lastModified": 1642203739,
-        "narHash": "sha256-wv4pncEo+12k+lGmCKuTSmCaxV+c8LMw4EqgnqB2oTU=",
-        "type": "git",
-        "url": "file:///home/mbund/nix-home"
+        "narHash": "sha256-tJj6JqFbawRMHY83l+vQM+bWVqgQfxEA3Fd/NwO/t2Q=",
+        "path": "/home/mbund/nix-home",
+        "type": "path"
       },
       "original": {
         "dir": "cli",
@@ -20,10 +19,9 @@
     "common": {
       "locked": {
         "dir": "common",
-        "lastModified": 1642203739,
-        "narHash": "sha256-wv4pncEo+12k+lGmCKuTSmCaxV+c8LMw4EqgnqB2oTU=",
-        "type": "git",
-        "url": "file:///home/mbund/nix-home"
+        "narHash": "sha256-tJj6JqFbawRMHY83l+vQM+bWVqgQfxEA3Fd/NwO/t2Q=",
+        "path": "/home/mbund/nix-home",
+        "type": "path"
       },
       "original": {
         "dir": "common",
@@ -58,11 +56,11 @@
       },
       "locked": {
         "narHash": "sha256-ncosI+5ZfqW8qkp63BVnJajZO/CXER2t+YUxb1/ytkA=",
-        "path": "/nix/store/7p6m3ilxij8mzg1356vrqy89kc8grjb8-source/marshmellow-roaster",
+        "path": "/nix/store/cng4qipx7pkdr21sp3l9gb9cnhir9723-source/marshmellow-roaster",
         "type": "path"
       },
       "original": {
-        "path": "/nix/store/7p6m3ilxij8mzg1356vrqy89kc8grjb8-source/marshmellow-roaster",
+        "path": "/nix/store/cng4qipx7pkdr21sp3l9gb9cnhir9723-source/marshmellow-roaster",
         "type": "path"
       }
     },
@@ -83,10 +81,9 @@
     "plasma": {
       "locked": {
         "dir": "plasma",
-        "lastModified": 1642203739,
-        "narHash": "sha256-wv4pncEo+12k+lGmCKuTSmCaxV+c8LMw4EqgnqB2oTU=",
-        "type": "git",
-        "url": "file:///home/mbund/nix-home"
+        "narHash": "sha256-tJj6JqFbawRMHY83l+vQM+bWVqgQfxEA3Fd/NwO/t2Q=",
+        "path": "/home/mbund/nix-home",
+        "type": "path"
       },
       "original": {
         "dir": "plasma",
