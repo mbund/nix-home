@@ -15,6 +15,8 @@
         neofetch
         neovim
         file
+        thefuck
+        autojump
 
         (nerdfonts.override { fonts = [ "Hasklig" ]; })
       ];
@@ -29,7 +31,7 @@
         enableAutosuggestions = true;
         oh-my-zsh = {
           enable = true;
-          plugins = [ "git" ];
+          plugins = [ "git" "autojump" ];
         };
 
         plugins = [
@@ -38,6 +40,10 @@
             src = inputs.zsh-syntax-highlighting;
           }
         ];
+
+        initExtra = ''
+          eval $(thefuck --alias)
+        '';
       };
 
       programs.starship = {
