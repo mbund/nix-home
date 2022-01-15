@@ -32,6 +32,7 @@
             vscodium
 	          virt-manager
 	          godot
+            gparted
           ];
 
         });
