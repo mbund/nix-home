@@ -14,7 +14,7 @@
         ranger
         neofetch
         neovim
-        file
+        # file
 
         (nerdfonts.override { fonts = [ "Hasklig" ]; })
       ];

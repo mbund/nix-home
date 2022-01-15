@@ -58,11 +58,11 @@
       },
       "locked": {
         "narHash": "sha256-ncosI+5ZfqW8qkp63BVnJajZO/CXER2t+YUxb1/ytkA=",
-        "path": "/nix/store/3dzk75ps3ys5c2s9mcg16x64mib3k1gx-source/marshmellow-roaster",
+        "path": "/nix/store/7p6m3ilxij8mzg1356vrqy89kc8grjb8-source/marshmellow-roaster",
         "type": "path"
       },
       "original": {
-        "path": "/nix/store/3dzk75ps3ys5c2s9mcg16x64mib3k1gx-source/marshmellow-roaster",
+        "path": "/nix/store/7p6m3ilxij8mzg1356vrqy89kc8grjb8-source/marshmellow-roaster",
         "type": "path"
       }
     },

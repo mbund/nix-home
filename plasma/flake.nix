@@ -10,6 +10,7 @@
           name = "Breeze";
           package = pkgs.gnome-breeze;
         };
+        
         iconTheme = {
           name = "Breeze";
           package = pkgs.gnome.adwaita-icon-theme;
