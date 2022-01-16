@@ -6,8 +6,25 @@
       },
       "locked": {
         "dir": "cli",
-        "lastModified": 1642219651,
-        "narHash": "sha256-6aZeSKaQtkibeomQjc6Ug7ZM75eNU5/EnRLZqnPOQGI=",
+        "lastModified": 1642266644,
+        "narHash": "sha256-0ZWOJgB17xmrm0okjOQESKCV1IvpWG4W1movzdK7U+c=",
+        "type": "git",
+        "url": "file:///home/mbund/nix-home"
+      },
+      "original": {
+        "dir": "cli",
+        "id": "home",
+        "type": "indirect"
+      }
+    },
+    "cli_2": {
+      "inputs": {
+        "zsh-syntax-highlighting": "zsh-syntax-highlighting_2"
+      },
+      "locked": {
+        "dir": "cli",
+        "lastModified": 1642266644,
+        "narHash": "sha256-0ZWOJgB17xmrm0okjOQESKCV1IvpWG4W1movzdK7U+c=",
         "type": "git",
         "url": "file:///home/mbund/nix-home"
       },
@@ -20,8 +37,8 @@
     "common": {
       "locked": {
         "dir": "common",
-        "lastModified": 1642219651,
-        "narHash": "sha256-6aZeSKaQtkibeomQjc6Ug7ZM75eNU5/EnRLZqnPOQGI=",
+        "lastModified": 1642266644,
+        "narHash": "sha256-0ZWOJgB17xmrm0okjOQESKCV1IvpWG4W1movzdK7U+c=",
         "type": "git",
         "url": "file:///home/mbund/nix-home"
       },
@@ -29,6 +46,37 @@
         "dir": "common",
         "id": "home",
         "type": "indirect"
+      }
+    },
+    "common_2": {
+      "locked": {
+        "dir": "common",
+        "lastModified": 1642266644,
+        "narHash": "sha256-0ZWOJgB17xmrm0okjOQESKCV1IvpWG4W1movzdK7U+c=",
+        "type": "git",
+        "url": "file:///home/mbund/nix-home"
+      },
+      "original": {
+        "dir": "common",
+        "id": "home",
+        "type": "indirect"
+      }
+    },
+    "desktop": {
+      "inputs": {
+        "cli": "cli",
+        "common": "common",
+        "home-manager": "home-manager",
+        "plasma": "plasma"
+      },
+      "locked": {
+        "narHash": "sha256-Vme4rojzar/wjKsJgzw8q0OQYVG3Lo7eiP/Vd6e7+E4=",
+        "path": "/nix/store/k8ds7hvjsnj30jrgp97bwpqsgwl03hcn-source/desktop",
+        "type": "path"
+      },
+      "original": {
+        "path": "/nix/store/k8ds7hvjsnj30jrgp97bwpqsgwl03hcn-source/desktop",
+        "type": "path"
       }
     },
     "home-manager": {
@@ -49,30 +97,62 @@
         "type": "github"
       }
     },
-    "marshmellow-roaster": {
+    "home-manager_2": {
       "inputs": {
-        "cli": "cli",
-        "common": "common",
-        "home-manager": "home-manager",
-        "plasma": "plasma"
+        "nixpkgs": "nixpkgs_2"
       },
       "locked": {
-        "narHash": "sha256-v1l98aHxKf/U4i9a+RS+2ewSRvfZmWqwgAcO9Bqa5ys=",
-        "path": "/nix/store/ynfnfqnpp5ddd7vd20513qg8ss8f8d0m-source/marshmellow-roaster",
+        "lastModified": 1642117744,
+        "narHash": "sha256-/SvxBe/m6JiRSlKIrgD6LQxee9GGewFyq+lsPxoViMY=",
+        "owner": "nix-community",
+        "repo": "home-manager",
+        "rev": "a5dd5d5f197724f3065fd39c59c7ccea3c8dcb8f",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nix-community",
+        "repo": "home-manager",
+        "type": "github"
+      }
+    },
+    "marshmellow-roaster": {
+      "inputs": {
+        "cli": "cli_2",
+        "common": "common_2",
+        "home-manager": "home-manager_2",
+        "plasma": "plasma_2"
+      },
+      "locked": {
+        "narHash": "sha256-AYo/ARtvVyrBJ3lA0S/3ccYFBmP/pMiZEFTNyMeUI6s=",
+        "path": "/nix/store/k8ds7hvjsnj30jrgp97bwpqsgwl03hcn-source/marshmellow-roaster",
         "type": "path"
       },
       "original": {
-        "path": "/nix/store/ynfnfqnpp5ddd7vd20513qg8ss8f8d0m-source/marshmellow-roaster",
+        "path": "/nix/store/k8ds7hvjsnj30jrgp97bwpqsgwl03hcn-source/marshmellow-roaster",
         "type": "path"
       }
     },
     "nixpkgs": {
       "locked": {
-        "lastModified": 1641939011,
-        "narHash": "sha256-a0z5+KgAFkqrDSFI9dl80GpnvtCgWnEHMewASkGrSE0=",
+        "lastModified": 1642069818,
+        "narHash": "sha256-666w6j8wl/bojfgpp0k58/UJ5rbrdYFbI2RFT2BXbSQ=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "1b29f6fdb8ca9389f5000f479cdec42ceb67e161",
+        "rev": "46821ea01c8f54d2a20f5a503809abfc605269d7",
+        "type": "github"
+      },
+      "original": {
+        "id": "nixpkgs",
+        "type": "indirect"
+      }
+    },
+    "nixpkgs_2": {
+      "locked": {
+        "lastModified": 1642069818,
+        "narHash": "sha256-666w6j8wl/bojfgpp0k58/UJ5rbrdYFbI2RFT2BXbSQ=",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "46821ea01c8f54d2a20f5a503809abfc605269d7",
         "type": "github"
       },
       "original": {
@@ -83,8 +163,22 @@
     "plasma": {
       "locked": {
         "dir": "plasma",
-        "lastModified": 1642219651,
-        "narHash": "sha256-6aZeSKaQtkibeomQjc6Ug7ZM75eNU5/EnRLZqnPOQGI=",
+        "lastModified": 1642266644,
+        "narHash": "sha256-0ZWOJgB17xmrm0okjOQESKCV1IvpWG4W1movzdK7U+c=",
+        "type": "git",
+        "url": "file:///home/mbund/nix-home"
+      },
+      "original": {
+        "dir": "plasma",
+        "id": "home",
+        "type": "indirect"
+      }
+    },
+    "plasma_2": {
+      "locked": {
+        "dir": "plasma",
+        "lastModified": 1642266644,
+        "narHash": "sha256-0ZWOJgB17xmrm0okjOQESKCV1IvpWG4W1movzdK7U+c=",
         "type": "git",
         "url": "file:///home/mbund/nix-home"
       },
@@ -96,10 +190,27 @@
     },
     "root": {
       "inputs": {
+        "desktop": "desktop",
         "marshmellow-roaster": "marshmellow-roaster"
       }
     },
     "zsh-syntax-highlighting": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1636857900,
+        "narHash": "sha256-MeuPqDeJpbJi2hT7VUgyQNSmDPY/biUncvyY78IBfzM=",
+        "owner": "zsh-users",
+        "repo": "zsh-syntax-highlighting",
+        "rev": "c7caf57ca805abd54f11f756fda6395dd4187f8a",
+        "type": "github"
+      },
+      "original": {
+        "owner": "zsh-users",
+        "repo": "zsh-syntax-highlighting",
+        "type": "github"
+      }
+    },
+    "zsh-syntax-highlighting_2": {
       "flake": false,
       "locked": {
         "lastModified": 1636857900,

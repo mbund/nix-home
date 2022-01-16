@@ -1,5 +1,5 @@
 {
-  description = "marshmellow-roaster home-manager";
+  description = "Primary desktop home-manager";
   
   inputs = {
     home-manager = {
@@ -33,6 +33,7 @@
 	          virt-manager
 	          godot
             gparted
+            discord
           ];
 
         });
