@@ -1,5 +1,5 @@
 {
-  description = "Primary desktop home-manager";
+  description = "mbund's home-manager configuration for all systems";
   
   inputs = {
     home-manager = {
@@ -14,7 +14,34 @@
 
   outputs = { self, ... } @ inputs: {
     homeConfigurations = {
-      mbund = inputs.home-manager.lib.homeManagerConfiguration {
+      
+      "mbund@mbund-desktop" = inputs.home-manager.lib.homeManagerConfiguration {
+        system = "x86_64-linux";
+        homeDirectory = "/home/mbund";
+        username = "mbund";
+        configuration = { config, lib, pkgs, ... }:
+        ({
+          imports = with inputs; [
+            common.home
+            cli.home
+            plasma.home
+          ];
+
+          nixpkgs.config.allowUnfree = true;
+
+          home.packages = with pkgs; [
+            firefox
+            vscodium
+	          virt-manager
+	          godot
+            gparted
+            discord
+          ];
+
+        });
+      };
+
+      "mbund@marshmellow-roaster" = inputs.home-manager.lib.homeManagerConfiguration {
         system = "x86_64-linux";
         homeDirectory = "/home/mbund";
         username = "mbund";
@@ -27,17 +54,16 @@
           ];
 
           home.packages = with pkgs; [
-            git
             firefox
             vscodium
 	          virt-manager
 	          godot
             gparted
-            discord
           ];
 
         });
       };
+
     };
   };
 }
