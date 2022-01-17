@@ -10,6 +10,7 @@
     common.url = "flake:home?dir=common";
     cli.url = "flake:home?dir=cli";
     plasma.url = "flake:home?dir=plasma";
+    firefox.url = "flake:home?dir=firefox";
   };
 
   outputs = { self, ... } @ inputs: {
@@ -25,15 +26,15 @@
             common.home
             cli.home
             plasma.home
+            firefox.home
           ];
 
           nixpkgs.config.allowUnfree = true;
 
           home.packages = with pkgs; [
-            firefox
             vscodium
-	          virt-manager
-	          godot
+            virt-manager
+            godot
             gparted
             discord
           ];
@@ -56,8 +57,8 @@
           home.packages = with pkgs; [
             firefox
             vscodium
-	          virt-manager
-	          godot
+            virt-manager
+            godot
             gparted
           ];
 
