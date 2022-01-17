@@ -15,7 +15,6 @@
         neofetch
         neovim
         file
-        thefuck
         autojump
 
         (nerdfonts.override { fonts = [ "Hasklig" ]; })
@@ -40,10 +39,6 @@
             src = inputs.zsh-syntax-highlighting;
           }
         ];
-
-        initExtra = ''
-          eval $(thefuck --alias)
-        '';
       };
       
       programs.direnv = {
