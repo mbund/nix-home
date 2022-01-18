@@ -6,8 +6,8 @@
       },
       "locked": {
         "dir": "cli",
-        "lastModified": 1642446577,
-        "narHash": "sha256-Xlev+QFTlHvHPHaGAh6MAdsxmiCmbx8TT09HbU2MR+E=",
+        "lastModified": 1642451443,
+        "narHash": "sha256-KY1qd0HYb+pM5t69CSScZK+cvmD5r4D2m61Vir0zASM=",
         "type": "git",
         "url": "file:///home/mbund/nix-home"
       },
@@ -20,8 +20,8 @@
     "common": {
       "locked": {
         "dir": "common",
-        "lastModified": 1642446577,
-        "narHash": "sha256-Xlev+QFTlHvHPHaGAh6MAdsxmiCmbx8TT09HbU2MR+E=",
+        "lastModified": 1642451443,
+        "narHash": "sha256-KY1qd0HYb+pM5t69CSScZK+cvmD5r4D2m61Vir0zASM=",
         "type": "git",
         "url": "file:///home/mbund/nix-home"
       },
@@ -38,8 +38,8 @@
       },
       "locked": {
         "dir": "firefox",
-        "lastModified": 1642446577,
-        "narHash": "sha256-Xlev+QFTlHvHPHaGAh6MAdsxmiCmbx8TT09HbU2MR+E=",
+        "lastModified": 1642451443,
+        "narHash": "sha256-KY1qd0HYb+pM5t69CSScZK+cvmD5r4D2m61Vir0zASM=",
         "type": "git",
         "url": "file:///home/mbund/nix-home"
       },
@@ -54,11 +54,11 @@
         "nixpkgs": "nixpkgs_2"
       },
       "locked": {
-        "lastModified": 1642379981,
-        "narHash": "sha256-FE0RIZmrG2ScKGRthNzcFAssLW7MgMLun0g7Qg2zZMA=",
+        "lastModified": 1642463060,
+        "narHash": "sha256-6xXRxvMk4OV/k6VwJq54pahToT4FCZzOKfbvG7f6l1E=",
         "owner": "nix-community",
         "repo": "home-manager",
-        "rev": "f71d41ba360cd49b3647bf91402c7479e859fd2e",
+        "rev": "8cf13abffc0808b337590a9e382604ab6c2cb3e7",
         "type": "github"
       },
       "original": {
@@ -77,11 +77,11 @@
       },
       "locked": {
         "narHash": "sha256-LFTEd5pO3tdD5YdYj/HgZWCTFoAg/sPla54FZN5DGcA=",
-        "path": "/nix/store/kkl5sy81sgr6aa2n8x96x1ibvl8dbk2y-source/mbund",
+        "path": "/nix/store/2wwagj0g5xrz0xklvvld4z2vmki0wla0-source/mbund",
         "type": "path"
       },
       "original": {
-        "path": "/nix/store/kkl5sy81sgr6aa2n8x96x1ibvl8dbk2y-source/mbund",
+        "path": "/nix/store/2wwagj0g5xrz0xklvvld4z2vmki0wla0-source/mbund",
         "type": "path"
       }
     },
@@ -115,11 +115,11 @@
     },
     "nur": {
       "locked": {
-        "lastModified": 1642443450,
-        "narHash": "sha256-wzu8ifk0rPi/qNXe2hgZiAr5MoQBkj9bgtO3IKqnTw4=",
+        "lastModified": 1642464025,
+        "narHash": "sha256-dMh+gKelMjNyza+zZNKgNdCkjhnLdpuyBUBmIZe3Dlk=",
         "owner": "nix-community",
         "repo": "NUR",
-        "rev": "cc8e4d5e2d5a44f1cbc54bf1dcd3c037b4d58c73",
+        "rev": "f31604b87cdec970afd18245fc93e2fad119097e",
         "type": "github"
       },
       "original": {
@@ -130,8 +130,8 @@
     "plasma": {
       "locked": {
         "dir": "plasma",
-        "lastModified": 1642446577,
-        "narHash": "sha256-Xlev+QFTlHvHPHaGAh6MAdsxmiCmbx8TT09HbU2MR+E=",
+        "lastModified": 1642451443,
+        "narHash": "sha256-KY1qd0HYb+pM5t69CSScZK+cvmD5r4D2m61Vir0zASM=",
         "type": "git",
         "url": "file:///home/mbund/nix-home"
       },
