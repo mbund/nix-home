@@ -29,14 +29,24 @@
             firefox.home
           ];
 
+          # required for
+          # discord
+          # vscode
+          # spotify
           nixpkgs.config.allowUnfree = true;
 
           home.packages = with pkgs; [
-            vscodium
+            vscode
             virt-manager
             godot
             gparted
             discord
+            ncdu
+            spotify
+            krita
+            inkscape
+            gimp
+            onlyoffice-bin
           ];
 
         });
