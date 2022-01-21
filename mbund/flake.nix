@@ -33,6 +33,7 @@
           # discord
           # vscode
           # spotify
+          # zoom-us
           nixpkgs.config.allowUnfree = true;
 
           home.packages = with pkgs; [
@@ -47,6 +48,7 @@
             inkscape
             gimp
             onlyoffice-bin
+            zoom-us
           ];
 
         });
