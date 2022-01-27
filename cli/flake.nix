@@ -11,11 +11,15 @@
   outputs = { self, ... } @ inputs: {
     home = { config, lib, pkgs, ... }: {
       home.packages = with pkgs; [
+        rnix-lsp
         ranger
         neofetch
-        neovim
         file
         autojump
+        fzf
+        ncdu
+        nix-tree
+        lynx
 
         (nerdfonts.override { fonts = [ "Hasklig" ]; })
       ];
@@ -39,8 +43,56 @@
             src = inputs.zsh-syntax-highlighting;
           }
         ];
+
+        shellGlobalAliases = {
+          "v" = "nvim";
+          "vi" = "nvim";
+          "vim" = "nvim";
+          "vimdiff" = "nvim -d";
+
+          "UUID" = "$(uuidgen | tr -d \\n)";
+        };
       };
-      
+
+      programs.neovim = {
+        enable = true;
+        extraConfig = ''
+          source ~/nix-home/cli/init.vim
+        '';
+
+        withNodeJs = true; # required for coc
+
+        plugins = with pkgs.vimPlugins; let
+          in [
+            # libraries
+            plenary-nvim
+
+            # file navigation
+            telescope-nvim
+            telescope-fzf-native-nvim
+            harpoon
+
+            # completion
+            coc-nvim
+            coc-vimlsp
+            vim-nix
+
+            # theming
+            wal-vim
+            nvim-base16
+            vim-airline
+            vim-airline-themes
+
+            # source control
+            vim-fugitive
+            vim-gitgutter
+
+            # misc
+            popup-nvim
+            undotree
+          ];
+      };
+
       programs.direnv = {
         enable = true;
         nix-direnv.enable = true;
