@@ -69,6 +69,11 @@
             # aspellDicts.en
           ];
 
+          home.sessionVariables = {
+            "EDITOR" = "neovim";
+            "VISUAL" = "neovim";
+          };
+
         });
       };
 

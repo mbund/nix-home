@@ -11,7 +11,7 @@ set shiftwidth=4
 set expandtab
 set smartindent
 set nowrap
-set smartcase
+set ignorecase
 set nowrap
 set noswapfile
 set nobackup
@@ -21,7 +21,7 @@ set incsearch
 set scrolloff=8
 set signcolumn=yes
 
-"colorscheme base16-onedark
+colorscheme base16-onedark
 "colorscheme wal
 
 let mapleader = " "

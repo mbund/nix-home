@@ -16,17 +16,87 @@
         };
       };
 
+      services.kdeconnect = {
+        enable = true;
+        indicator = true;
+      };
+
       home.packages = with pkgs; [
         krfb
         krdc
         ark
         latte-dock
+        scrcpy
+        libsForQt5.bismuth
 
         (pkgs.writeShellApplication {
           name = "kde-chameleon";
           runtimeInputs = with pkgs; [ dbus pywal jq ];
           text = builtins.readFile ./kde-chameleon.sh;
         })
+
+        (pkgs.libsForQt5.callPackage({ mkDerivation }: mkDerivation) {} rec {
+          name = "kde-rounded-corners";
+          version = "0.0.1";
+
+          src = pkgs.fetchFromGitHub {
+            owner = "matinlotfali";
+            repo = "KDE-Rounded-Corners";
+            rev = "8ad8f5f5eff9d1625abc57cb24dc484d51f0e1bd";
+            sha256 = "sha256-N6DBsmHGTmLTKNxqgg7bn06BmLM2fLdtFG2AJo+benU=";
+          };
+          nativeBuildInputs = with pkgs; [
+            cmake
+          ];
+          buildInputs = with pkgs; [
+            extra-cmake-modules
+            libepoxy
+            xorg.libXdmcp
+            libsForQt5.kconfig
+            libsForQt5.kconfigwidgets
+            libsForQt5.kcrash
+            libsForQt5.kglobalaccel
+            libsForQt5.kio
+            libsForQt5.kinit
+            libsForQt5.kwin
+            libsForQt5.knotifications
+            libsForQt5.qt5.qtbase
+            libsForQt5.qt5.qttools
+            libsForQt5.qt5.qtx11extras
+            libsForQt5.kguiaddons
+            libsForQt5.ki18n
+            libsForQt5.kdelibs4support
+          ];
+
+          preConfigure = ''
+            local modulepath=$(kf5-config --install module)
+            local datapath=$(kf5-config --install data)
+            substituteInPlace CMakeLists.txt \
+              --replace "\''${MODULEPATH}" "$out/''${modulepath#/nix/store/*/}" \
+              --replace "\''${DATAPATH}"   "$out/''${datapath#/nix/store/*/}"
+          '';
+
+          # preConfigure = ''
+          #   substituteInPlace CMakeLists.txt \
+          #     --replace "\''${MODULEPATH}" "$out/qt-5.15.2/plugins" \
+          #     --replace "\''${DATAPATH}"   "$out/share"
+          # '';
+
+          # configurePhase = ''
+          #   mkdir qt5build
+          #   cd qt5build
+          #   cmake -DCMAKE_INSTALL_PREFIX=$out/usr/ -DQT5BUILD=ON ..
+          # '';
+
+          # buildPhase = ''
+          #   make -j 4
+          # '';
+
+          # installPhase = ''
+          #   make install
+          # '';
+        })
+        
       ];
       
       home.activation.kdeConfigs = let
@@ -65,8 +135,7 @@
 
             # Workspace Behavior -> Desktop Effects
             Plugins = {
-              blurEnable = true;
-              contrastEnable = false;
+              slideEnabled = false;
             };
 
             TabBox = { # Task Switcher
