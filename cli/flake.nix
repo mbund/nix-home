@@ -2,16 +2,17 @@
   description = "Command Line Interface";
 
   inputs = {
-    zsh-syntax-highlighting = {
-      url = "github:zsh-users/zsh-syntax-highlighting";
-      flake = false;
-    };
+    zsh-syntax-highlighting = { url = "github:zsh-users/zsh-syntax-highlighting"; flake = false; };
+
+    cmp-npm = { url = "github:David-Kunz/cmp-npm"; flake = false; };
+    diagnosticls-configs-nvim = { url = "github:creativenull/diagnosticls-configs-nvim"; flake = false; };
+    vim-windowswap = { url = "github:wesQ3/vim-windowswap"; flake = false; };
+    zen-mode-nvim = { url = "github:folke/zen-mode.nvim"; flake = false; };
   };
 
   outputs = { self, ... } @ inputs: {
     home = { config, lib, pkgs, ... }: {
       home.packages = with pkgs; [
-        rnix-lsp
         ranger
         neofetch
         file
@@ -20,6 +21,9 @@
         ncdu
         nix-tree
         lynx
+        tmux
+        kitty
+        lazygit
 
         (nerdfonts.override { fonts = [ "Hasklig" ]; })
       ];
@@ -34,7 +38,7 @@
         enableAutosuggestions = true;
         oh-my-zsh = {
           enable = true;
-          plugins = [ "git" "autojump" ];
+          plugins = [ "git" "autojump" "vi-mode" ];
         };
 
         plugins = [
@@ -46,12 +50,14 @@
 
         shellGlobalAliases = {
           "v" = "nvim";
-          "vi" = "nvim";
-          "vim" = "nvim";
           "vimdiff" = "nvim -d";
 
           "UUID" = "$(uuidgen | tr -d \\n)";
         };
+
+        initExtra = ''
+          bindkey -v
+        '';
       };
 
       programs.neovim = {
@@ -60,36 +66,89 @@
           source ~/nix-home/cli/init.vim
         '';
 
-        withNodeJs = true; # required for coc
+        extraPackages = with pkgs; [
+          neovim-remote
+          gcc # a c compiler is required for nvim-treesitter
+          tree-sitter
+
+          rnix-lsp
+          haskell-language-server
+          nodePackages.bash-language-server
+          nodePackages.vim-language-server
+        ];
 
         plugins = with pkgs.vimPlugins; let
+            pluginWithDeps = plugin: deps: plugin.overrideAttrs (_: { dependencies = deps; });
+            externalPlugin = pkgs.vimUtils.buildVimPluginFrom2Nix;
           in [
-            # libraries
-            plenary-nvim
-
-            # file navigation
-            telescope-nvim
-            telescope-fzf-native-nvim
-            harpoon
-
-            # completion
-            coc-nvim
-            coc-vimlsp
-            vim-nix
-
-            # theming
+            # themeing
             wal-vim
             nvim-base16
-            vim-airline
-            vim-airline-themes
+            lualine-nvim
+            nvim-web-devicons
+            dashboard-nvim
+            (pluginWithDeps bufferline-nvim [ nvim-web-devicons ])
+            gitsigns-nvim
+            dracula-vim
+            nvim-treesitter
+            nvim-colorizer-lua
+            vim-highlightedyank
+            limelight-vim
+            dressing-nvim
 
-            # source control
-            vim-fugitive
-            vim-gitgutter
+            # motions, remaps, text-editing improvements
+            vim-sneak
+            vim-commentary
+            vim-indent-object
+            vim-textobj-user
+            vim-sort-motion
+            vim-exchange
+            vim-unimpaired
+            vim-surround
+            vim-repeat
+            nvim-autopairs
+            vim-sleuth
+            emmet-vim
 
             # misc
-            popup-nvim
+            vim-fugitive
             undotree
+            direnv-vim
+            vim-tmux-navigator
+            vimux
+            vimwiki
+            nvim-tree-lua
+            vim-projectionist
+            vim-eunuch
+            editorconfig-vim
+            vim-startuptime
+            wilder-nvim
+            (externalPlugin { pname = "vim-windowswap"; version = "master"; src = inputs.vim-windowswap; })
+            (externalPlugin { pname = "zen-mode-nvim"; version = "master"; src = inputs.zen-mode-nvim; })
+
+            # file navigation
+            harpoon
+            popup-nvim
+            plenary-nvim
+            telescope-nvim
+            telescope-fzf-native-nvim
+            telescope-file-browser-nvim
+
+            # lsp
+            nvim-lspconfig
+            nvim-lsputils
+            trouble-nvim
+            lspkind-nvim
+            nvim-cmp
+            cmp-buffer
+            cmp-path
+            cmp-nvim-lsp
+            luasnip
+            cmp_luasnip
+            vim-jsx-pretty
+            vim-nix
+            (externalPlugin { pname = "cmp-npm"; version = "master"; src = inputs.cmp-npm; })
+            (externalPlugin { pname = "diagnosticls-configs-nvim"; version = "master"; src = inputs.diagnosticls-configs-nvim; })
           ];
       };
 
@@ -127,6 +186,8 @@
           };
           character = {
             success_symbol = "[λ](bold green)";
+            error_symbol = "[λ](bold red)";
+            vicmd_symbol = "[λ](bold yellow)";
           };
           package.disabled = true;
         };

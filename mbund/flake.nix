@@ -7,10 +7,10 @@
       inputs.nixpkgs.url = "flake:nixpkgs";
     };
 
-    common.url = "flake:home?dir=common";
-    cli.url = "flake:home?dir=cli";
-    plasma.url = "flake:home?dir=plasma";
-    firefox.url = "flake:home?dir=firefox";
+    common.follows = "common";
+    cli.follows = "cli";
+    plasma.follows = "plasma";
+    firefox.follows = "firefox";
   };
 
   outputs = { self, ... } @ inputs: {
@@ -66,7 +66,7 @@
             onlyoffice-bin
             zoom
             aspell
-            # aspellDicts.en
+            aspellDicts.en
           ];
 
           home.sessionVariables = {

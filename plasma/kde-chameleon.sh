@@ -15,8 +15,8 @@ wallpaper_set_script="string:
         d.writeConfig('Image', 'file://${full_image_path}')
     }"
 
-# qdbus org.kde.plasmashell /PlasmaShell org.kde.PlasmaShell.evaluateScript "${wallpaper_set_script}" 
-dbus-send --session --dest=org.kde.plasmashell --type=method_call /PlasmaShell org.kde.PlasmaShell.evaluateScript "${wallpaper_set_script}"
+qdbus org.kde.plasmashell /PlasmaShell org.kde.PlasmaShell.evaluateScript "${wallpaper_set_script}" 
+# dbus-send --session --dest=org.kde.plasmashell --type=method_call /PlasmaShell org.kde.PlasmaShell.evaluateScript "${wallpaper_set_script}"
 
 # Generate + apply Color scheme with pywal 
 # Make sure you edit your rc file to apply theme to new terminals : 

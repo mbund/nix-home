@@ -2,33 +2,63 @@
   "nodes": {
     "cli": {
       "inputs": {
+        "cmp-npm": "cmp-npm",
+        "diagnosticls-configs-nvim": "diagnosticls-configs-nvim",
+        "vim-windowswap": "vim-windowswap",
+        "zen-mode-nvim": "zen-mode-nvim",
         "zsh-syntax-highlighting": "zsh-syntax-highlighting"
       },
       "locked": {
-        "dir": "cli",
-        "lastModified": 1643253522,
-        "narHash": "sha256-gmu1Vm0jwSeQjiOm8xoqRXaFcg64eOw36HEpZJ7Oi28=",
-        "type": "git",
-        "url": "file:///home/mbund/nix-home"
+        "narHash": "sha256-I6skSk0PCt5j0e/PwKyAOTAFFIVF4o64mOJbb40ZkYA=",
+        "path": "/nix/store/wqh0q3x6g8fgc5nl4k5hprnm6ljwii25-source/cli",
+        "type": "path"
       },
       "original": {
-        "dir": "cli",
-        "id": "home",
-        "type": "indirect"
+        "path": "/nix/store/wqh0q3x6g8fgc5nl4k5hprnm6ljwii25-source/cli",
+        "type": "path"
+      }
+    },
+    "cmp-npm": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1635350489,
+        "narHash": "sha256-QggQ+axMaFcUCt2gfSpsDpM0YlxEkAiDCctzfYtceVI=",
+        "owner": "David-Kunz",
+        "repo": "cmp-npm",
+        "rev": "4b6166c3feeaf8dae162e33ee319dc5880e44a29",
+        "type": "github"
+      },
+      "original": {
+        "owner": "David-Kunz",
+        "repo": "cmp-npm",
+        "type": "github"
       }
     },
     "common": {
       "locked": {
-        "dir": "common",
-        "lastModified": 1643253522,
-        "narHash": "sha256-gmu1Vm0jwSeQjiOm8xoqRXaFcg64eOw36HEpZJ7Oi28=",
-        "type": "git",
-        "url": "file:///home/mbund/nix-home"
+        "narHash": "sha256-67PJCLHViLrTCtEE9d4KSewtofKepiy2OVTc6aPv1iQ=",
+        "path": "/nix/store/wqh0q3x6g8fgc5nl4k5hprnm6ljwii25-source/common",
+        "type": "path"
       },
       "original": {
-        "dir": "common",
-        "id": "home",
-        "type": "indirect"
+        "path": "/nix/store/wqh0q3x6g8fgc5nl4k5hprnm6ljwii25-source/common",
+        "type": "path"
+      }
+    },
+    "diagnosticls-configs-nvim": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1642111245,
+        "narHash": "sha256-JmLHSLBKUK6ZU/Lz/kTibzn/0vmMTmi5H8UmRdFyWDY=",
+        "owner": "creativenull",
+        "repo": "diagnosticls-configs-nvim",
+        "rev": "e5d3e20f51f7ce3c2d38afd14df9d80d0a665234",
+        "type": "github"
+      },
+      "original": {
+        "owner": "creativenull",
+        "repo": "diagnosticls-configs-nvim",
+        "type": "github"
       }
     },
     "firefox": {
@@ -37,16 +67,29 @@
         "nur": "nur"
       },
       "locked": {
-        "dir": "firefox",
-        "lastModified": 1643253522,
-        "narHash": "sha256-gmu1Vm0jwSeQjiOm8xoqRXaFcg64eOw36HEpZJ7Oi28=",
-        "type": "git",
-        "url": "file:///home/mbund/nix-home"
+        "narHash": "sha256-xemPfiE43wSBZ+MQzvha/PXabxPXJxwU6kKKqR3te+0=",
+        "path": "/nix/store/wqh0q3x6g8fgc5nl4k5hprnm6ljwii25-source/firefox",
+        "type": "path"
       },
       "original": {
-        "dir": "firefox",
-        "id": "home",
-        "type": "indirect"
+        "path": "/nix/store/wqh0q3x6g8fgc5nl4k5hprnm6ljwii25-source/firefox",
+        "type": "path"
+      }
+    },
+    "fluent-icons": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1643519671,
+        "narHash": "sha256-Z+xAv/RAh4iCHvNwrodGI8YE2xcdOec1np7w8IToCAM=",
+        "owner": "vinceliuice",
+        "repo": "Fluent-icon-theme",
+        "rev": "392b45d78968767a607446a80dcbde445989a14f",
+        "type": "github"
+      },
+      "original": {
+        "owner": "vinceliuice",
+        "repo": "Fluent-icon-theme",
+        "type": "github"
       }
     },
     "home-manager": {
@@ -54,11 +97,11 @@
         "nixpkgs": "nixpkgs_2"
       },
       "locked": {
-        "lastModified": 1643411645,
-        "narHash": "sha256-q1TjWmK1MeGNfcU8ud11v9ZTqq2UI8YiCVKCD2MeAEk=",
+        "lastModified": 1643579427,
+        "narHash": "sha256-tV4M4+Aqd/3ZjEz1Q07j89KIlkt1oFH34RzpBkUeO/0=",
         "owner": "nix-community",
         "repo": "home-manager",
-        "rev": "acf824c9ed70f623b424c2ca41d0f6821014c67c",
+        "rev": "a52aed72c84a2a10102a92397339fa01fc0fe9cf",
         "type": "github"
       },
       "original": {
@@ -67,21 +110,45 @@
         "type": "github"
       }
     },
+    "kde-rounded-corners": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1636157358,
+        "narHash": "sha256-N6DBsmHGTmLTKNxqgg7bn06BmLM2fLdtFG2AJo+benU=",
+        "owner": "matinlotfali",
+        "repo": "KDE-Rounded-Corners",
+        "rev": "8ad8f5f5eff9d1625abc57cb24dc484d51f0e1bd",
+        "type": "github"
+      },
+      "original": {
+        "owner": "matinlotfali",
+        "repo": "KDE-Rounded-Corners",
+        "type": "github"
+      }
+    },
     "mbund": {
       "inputs": {
-        "cli": "cli",
-        "common": "common",
-        "firefox": "firefox",
+        "cli": [
+          "cli"
+        ],
+        "common": [
+          "common"
+        ],
+        "firefox": [
+          "firefox"
+        ],
         "home-manager": "home-manager",
-        "plasma": "plasma"
+        "plasma": [
+          "plasma"
+        ]
       },
       "locked": {
-        "narHash": "sha256-95A6PxAfzs3hOU7iJdaqKoBSV3DyOI5UO47TVHQbMpQ=",
-        "path": "/nix/store/jlak8la39k1np4xd81hzm6d0mb0fbf5l-source/mbund",
+        "narHash": "sha256-9lPEVt/03je8Z7ga+wZnwi7Gv4BirQYjeoZ3liGF5rk=",
+        "path": "/nix/store/wqh0q3x6g8fgc5nl4k5hprnm6ljwii25-source/mbund",
         "type": "path"
       },
       "original": {
-        "path": "/nix/store/jlak8la39k1np4xd81hzm6d0mb0fbf5l-source/mbund",
+        "path": "/nix/store/wqh0q3x6g8fgc5nl4k5hprnm6ljwii25-source/mbund",
         "type": "path"
       }
     },
@@ -127,33 +194,87 @@
         "type": "indirect"
       }
     },
-    "plasma": {
+    "one-dark-kde-theme": {
+      "flake": false,
       "locked": {
-        "dir": "plasma",
-        "lastModified": 1643253522,
-        "narHash": "sha256-gmu1Vm0jwSeQjiOm8xoqRXaFcg64eOw36HEpZJ7Oi28=",
-        "type": "git",
-        "url": "file:///home/mbund/nix-home"
+        "lastModified": 1628509088,
+        "narHash": "sha256-3TYYX2mi/FiIajZbrA7C0HSEjaJFX13GzxxLFwPDKfE=",
+        "owner": "Prayag2",
+        "repo": "kde_onedark",
+        "rev": "8a928843bb308ebe935f23b4e0f8c0a0259e0e32",
+        "type": "github"
       },
       "original": {
-        "dir": "plasma",
-        "id": "home",
-        "type": "indirect"
+        "owner": "Prayag2",
+        "repo": "kde_onedark",
+        "type": "github"
+      }
+    },
+    "plasma": {
+      "inputs": {
+        "fluent-icons": "fluent-icons",
+        "kde-rounded-corners": "kde-rounded-corners",
+        "one-dark-kde-theme": "one-dark-kde-theme"
+      },
+      "locked": {
+        "narHash": "sha256-W4lWb3iF+XNfHKBGht52BG7YSl1rdX/Q3OgONiBSDmo=",
+        "path": "/nix/store/wqh0q3x6g8fgc5nl4k5hprnm6ljwii25-source/plasma",
+        "type": "path"
+      },
+      "original": {
+        "path": "/nix/store/wqh0q3x6g8fgc5nl4k5hprnm6ljwii25-source/plasma",
+        "type": "path"
       }
     },
     "root": {
       "inputs": {
-        "mbund": "mbund"
+        "cli": "cli",
+        "common": "common",
+        "firefox": "firefox",
+        "mbund": "mbund",
+        "plasma": "plasma"
+      }
+    },
+    "vim-windowswap": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1526505087,
+        "narHash": "sha256-S1CN0Dbb2BtZx4Jhafac2AltkzV2sPAixSESBXbn7/8=",
+        "owner": "wesQ3",
+        "repo": "vim-windowswap",
+        "rev": "15db3f697aa1fa696d99fcdc920c90cd2cec855e",
+        "type": "github"
+      },
+      "original": {
+        "owner": "wesQ3",
+        "repo": "vim-windowswap",
+        "type": "github"
+      }
+    },
+    "zen-mode-nvim": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1636312798,
+        "narHash": "sha256-t+X4ObITdnpvs5olundHES28dS2d/Eoz4snMHrzNs7s=",
+        "owner": "folke",
+        "repo": "zen-mode.nvim",
+        "rev": "f1cc53d32b49cf962fb89a2eb0a31b85bb270f7c",
+        "type": "github"
+      },
+      "original": {
+        "owner": "folke",
+        "repo": "zen-mode.nvim",
+        "type": "github"
       }
     },
     "zsh-syntax-highlighting": {
       "flake": false,
       "locked": {
-        "lastModified": 1636857900,
-        "narHash": "sha256-MeuPqDeJpbJi2hT7VUgyQNSmDPY/biUncvyY78IBfzM=",
+        "lastModified": 1643622897,
+        "narHash": "sha256-Nso9E+yDbjO8F4O8ggukepj4OTpUmOfnPtRArzS1x1Y=",
         "owner": "zsh-users",
         "repo": "zsh-syntax-highlighting",
-        "rev": "c7caf57ca805abd54f11f756fda6395dd4187f8a",
+        "rev": "c10808ad5f3ace0696f900b9c543172bc1f8e27c",
         "type": "github"
       },
       "original": {
