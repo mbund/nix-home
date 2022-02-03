@@ -30,6 +30,7 @@
           ];
 
           nixpkgs.config.allowUnfreePredicate = pkg: builtins.elem (lib.getName pkg) [
+            "steam" "steam-original" "steam-runtime" # for lutris
             "vscode"
             "discord"
             "zoom"
@@ -49,6 +50,10 @@
           };
 
           home.packages = with pkgs; [
+            lutris xdelta
+            # (lutris.overrideAttrs (_: { dependencies = [ xdelta ]; }))
+            # pluginWithDeps = plugin: deps: plugin.overrideAttrs (_: { dependencies = deps; });
+            
             zip
             unzip
             mpv
