@@ -18,6 +18,10 @@
         };
       };
 
+      home.packages = with pkgs; [
+        nix-index
+      ];
+
       programs.home-manager.enable = true;
     };
   };
