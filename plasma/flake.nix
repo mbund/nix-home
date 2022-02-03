@@ -117,6 +117,7 @@
               Id_7 = "e78631ff-98ac-4bd6-a2b6-1bca799f75c7";
               Id_8 = "760b6320-d6c5-4623-a0e7-8e0c676de3a2";
               Id_9 = "7f9dbd6d-edfe-47b6-bafb-1f8e14562778";
+              Id_10 = "5d70cb18-c505-4811-9f42-bf3cbd37d5b0";
               Name_1 = "1";
               Name_2 = "2";
               Name_3 = "3";
@@ -126,7 +127,8 @@
               Name_7 = "7";
               Name_8 = "8";
               Name_9 = "9";
-              Number = 9;
+              Name_10 = "10";
+              Number = 10;
               Rows = 1;
             };
 
@@ -181,6 +183,13 @@
           };
 
           kglobalshortcutsrc = {
+            plasmashell = {
+              "activate task manager entry 6" = "none,Meta+6,Activate Task Manager Entry 6";
+              "activate task manager entry 7" = "none,Meta+7,Activate Task Manager Entry 7";
+              "activate task manager entry 8" = "none,Meta+8,Activate Task Manager Entry 8";
+              "activate task manager entry 9" = "none,Meta+9,Activate Task Manager Entry 9";
+              "activate task manager entry 10" = "none,Meta+0,Activate Task Manager Entry 10";
+            };
             kwin = {
               "Window Close" = "Meta+C,Alt+F4,Close Window";
               "Window Fullscreen" = "Meta+Shift+F,none,Make Window Fullscreen";
@@ -197,6 +206,7 @@
               "Switch to Desktop 7" = "Meta+7,none,Switch to Desktop 7";
               "Switch to Desktop 8" = "Meta+8,none,Switch to Desktop 8";
               "Switch to Desktop 9" = "Meta+9,none,Switch to Desktop 9";
+              "Switch to Desktop 10" = "Meta+0,none,Switch to Desktop 10";
 
               "Switch to Screen 0" = "Meta+A,none,Switch to Screen 0";
               "Switch to Screen 1" = "Meta+S,none,Switch to Screen 1";
