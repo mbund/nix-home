@@ -1,0 +1,22 @@
+name: "Nix Tests"
+on:
+  pull_request:
+  push:
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+
+    - name: Install nix
+      uses: cachix/install-nix-action@v16
+
+    - name: Flake metadata
+      run: nix flake metadata
+
+    - name: Check
+      run: nix flake check
+
+    - name: Build
+      run: nix run nixpkgs#home-manager -- build --flake .#mbund@mbund-desktop
