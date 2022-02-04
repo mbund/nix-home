@@ -20,7 +20,7 @@
         system = "x86_64-linux";
         homeDirectory = "/home/mbund";
         username = "mbund";
-        configuration = { config, lib, pkgs, ... }:
+        configuration = { lib, pkgs, ... }:
         ({
           imports = with inputs; [
             common.home
@@ -86,7 +86,7 @@
         system = "x86_64-linux";
         homeDirectory = "/home/mbund";
         username = "mbund";
-        configuration = { config, lib, pkgs, ... }:
+        configuration = { pkgs, ... }:
         ({
           imports = with inputs; [
             common.home

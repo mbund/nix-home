@@ -11,7 +11,7 @@
   };
 
   outputs = { self, ... } @ inputs: {
-    home = { config, lib, pkgs, ... }: {
+    home = { pkgs, ... }: {
       home.packages = with pkgs; [
         ranger
         neofetch
@@ -24,6 +24,8 @@
         tmux
         kitty
         lazygit
+        curl
+        wget
 
         (nerdfonts.override { fonts = [ "Hasklig" ]; })
       ];
