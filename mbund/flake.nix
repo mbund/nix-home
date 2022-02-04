@@ -21,7 +21,7 @@
         homeDirectory = "/home/mbund";
         username = "mbund";
         configuration = { lib, pkgs, ... }:
-        ({
+        {
           imports = with inputs; [
             common.home
             cli.home
@@ -79,7 +79,7 @@
             "VISUAL" = "neovim";
           };
 
-        });
+        };
       };
 
       "mbund@marshmellow-roaster" = inputs.home-manager.lib.homeManagerConfiguration {
@@ -87,11 +87,12 @@
         homeDirectory = "/home/mbund";
         username = "mbund";
         configuration = { pkgs, ... }:
-        ({
+        {
           imports = with inputs; [
             common.home
             cli.home
             plasma.home
+            firefox.home
           ];
 
           home.packages = with pkgs; [
@@ -102,9 +103,30 @@
             gparted
           ];
 
-        });
+        };
       };
 
     };
+
+    configurations = {
+
+      "mbund@live-iso" = { pkgs, ... }: {
+        imports = with inputs; [
+          common.home
+          cli.home
+          plasma.home
+          firefox.home
+        ];
+
+        home.packages = with pkgs; [
+          vscodium
+          virt-manager
+          godot
+          gparted
+        ];
+      };
+
+    };
+
   };
 }
