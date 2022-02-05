@@ -18,8 +18,8 @@
   outputs = { self, nixpkgs, home-manager, ... } @ inputs:
     let
       homes = [
-        # { system = "x86_64-linux"; user = "mbund@mbund-desktop"; }
-        # { system = "x86_64-linux"; user = "mbund@marshmellow-roaster"; }
+        { system = "x86_64-linux"; user = "mbund@mbund-desktop"; }
+        { system = "x86_64-linux"; user = "mbund@marshmellow-roaster"; }
         { system = "x86_64-linux"; user = "mbund@live-iso"; }
       ];
 
@@ -40,6 +40,7 @@
       homeConfigurations = builder ({ home, splitUser, configPath }:
         home-manager.lib.homeManagerConfiguration {
           system = home.system;
+          stateVersion = "21.11";
           homeDirectory = "/home/${builtins.head splitUser}";
           username = builtins.head splitUser;
           configuration = import configPath;
@@ -48,10 +49,12 @@
       );
 
       homeNixOSModules = builder ({ home, splitUser, configPath }: {
-        useGlobalPkgs = true;
-        useUserPackages = true;
-        users.${builtins.head splitUser} = import configPath;
-        extraSpecialArgs = { inherit inputs; };
+        home-manager = {
+          useGlobalPkgs = true;
+          useUserPackages = true;
+          extraSpecialArgs = { inherit inputs; };
+          users.${builtins.head splitUser} = import configPath;
+        };
       });
 
   };

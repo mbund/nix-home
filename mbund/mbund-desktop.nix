@@ -9,18 +9,11 @@
 
   nixpkgs.config.allowUnfreePredicate = pkg: builtins.elem (lib.getName pkg) [
     "steam" "steam-original" "steam-runtime" # for lutris
-    "vscode"
+    "vscode" "vscode-extension-ms-vsliveshare-vsliveshare"
     "discord"
     "zoom"
     "spotify-unwrapped"
-    "vscode-extension-ms-vsliveshare-vsliveshare"
   ];
-
-  programs.vscode = {
-    enable = true;
-    package = pkgs.vscode;
-    extensions = with pkgs.vscode-extensions; [ ms-vsliveshare.vsliveshare ];
-  };
 
   programs.obs-studio = {
     enable = true;
@@ -28,9 +21,7 @@
   };
 
   home.packages = with pkgs; [
-    lutris xdelta
-    # (lutris.overrideAttrs (_: { dependencies = [ xdelta ]; }))
-    # pluginWithDeps = plugin: deps: plugin.overrideAttrs (_: { dependencies = deps; });
+    (lutris.overrideAttrs (_: { buildInputs = [ xdelta ]; }))
     
     zip
     unzip
