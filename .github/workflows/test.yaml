@@ -3,7 +3,7 @@ on:
   pull_request:
   push:
 jobs:
-  build:
+  check:
     runs-on: ubuntu-latest
     steps:
     - name: Checkout
@@ -17,6 +17,3 @@ jobs:
 
     - name: Check
       run: nix flake check
-
-    - name: Build
-      run: nix run nixpkgs#home-manager -- build --flake .#mbund@mbund-desktop
