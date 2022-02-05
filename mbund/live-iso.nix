@@ -25,7 +25,6 @@
     unzip
     mpv
     vlc
-    chromium
     virt-manager
     godot
     gparted

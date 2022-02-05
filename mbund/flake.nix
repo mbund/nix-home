@@ -12,7 +12,7 @@
     plasma.follows = "plasma";
     firefox.follows = "firefox";
 
-    nixpkgs.url = "flake:nixpkgs";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
   };
 
   outputs = { self, nixpkgs, home-manager, ... } @ inputs:
