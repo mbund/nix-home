@@ -4,129 +4,54 @@
   inputs = {
     home-manager = {
       url = "github:nix-community/home-manager";
-      inputs.nixpkgs.url = "flake:nixpkgs";
+      inputs.nixpkgs.url = "nixpkgs";
     };
 
     common.follows = "common";
     cli.follows = "cli";
     plasma.follows = "plasma";
     firefox.follows = "firefox";
+
+    nixpkgs.url = "flake:nixpkgs";
   };
 
-  outputs = { self, ... } @ inputs: {
-    homeConfigurations = {
-      
-      "mbund@mbund-desktop" = inputs.home-manager.lib.homeManagerConfiguration {
-        system = "x86_64-linux";
-        homeDirectory = "/home/mbund";
-        username = "mbund";
-        configuration = { lib, pkgs, ... }:
-        {
-          imports = with inputs; [
-            common.home
-            cli.home
-            plasma.home
-            firefox.home
-          ];
+  outputs = { self, nixpkgs, home-manager, ... } @ inputs:
+    let
+      homes = [
+        { system = "x86_64-linux"; user = "mbund@mbund-desktop"; }
+        { system = "x86_64-linux"; user = "mbund@marshmellow-roaster"; }
+        { system = "x86_64-linux"; user = "mbund@live-iso"; }
+      ];
 
-          nixpkgs.config.allowUnfreePredicate = pkg: builtins.elem (lib.getName pkg) [
-            "steam" "steam-original" "steam-runtime" # for lutris
-            "vscode"
-            "discord"
-            "zoom"
-            "spotify-unwrapped"
-            "vscode-extension-ms-vsliveshare-vsliveshare"
-          ];
+      builder = f: builtins.listToAttrs (builtins.map (home: {
+        name = home.user;
 
-          programs.vscode = {
-            enable = true;
-            package = pkgs.vscode;
-            extensions = with pkgs.vscode-extensions; [ ms-vsliveshare.vsliveshare ];
-          };
+        value = let
+          splitUser = nixpkgs.lib.splitString "@" home.user;
+          configPath = ./. + "/${builtins.elemAt splitUser 1}.nix";
+        in
+          assert nixpkgs.lib.assertMsg (builtins.length splitUser == 2) "invalid name: ${home.user}";
+          assert nixpkgs.lib.assertMsg (builtins.pathExists configPath) "path does not exist: ${builtins.toString configPath}";
 
-          programs.obs-studio = {
-            enable = true;
-            plugins = with pkgs.obs-studio-plugins; [ obs-nvfbc ];
-          };
+          f { inherit home splitUser configPath; };
+      }) homes);
+    in {
 
-          home.packages = with pkgs; [
-            lutris xdelta
-            # (lutris.overrideAttrs (_: { dependencies = [ xdelta ]; }))
-            # pluginWithDeps = plugin: deps: plugin.overrideAttrs (_: { dependencies = deps; });
-            
-            zip
-            unzip
-            mpv
-            vlc
-            chromium
-            virt-manager
-            godot
-            gparted
-            discord
-            spotify-tui
-            spotify-unwrapped
-            krita
-            inkscape
-            gimp
-            onlyoffice-bin
-            zoom
-            aspell
-            aspellDicts.en
-          ];
+      homeConfigurations = builder ({ home, splitUser, configPath }:
+        home-manager.lib.homeManagerConfiguration {
+          system = home.system;
+          homeDirectory = "/home/${builtins.head splitUser}";
+          username = builtins.head splitUser;
+          configuration = import configPath;
+          extraSpecialArgs = { inherit inputs; };
+        });
 
-          home.sessionVariables = {
-            "EDITOR" = "neovim";
-            "VISUAL" = "neovim";
-          };
-
-        };
-      };
-
-      "mbund@marshmellow-roaster" = inputs.home-manager.lib.homeManagerConfiguration {
-        system = "x86_64-linux";
-        homeDirectory = "/home/mbund";
-        username = "mbund";
-        configuration = { pkgs, ... }:
-        {
-          imports = with inputs; [
-            common.home
-            cli.home
-            plasma.home
-            firefox.home
-          ];
-
-          home.packages = with pkgs; [
-            firefox
-            vscodium
-            virt-manager
-            godot
-            gparted
-          ];
-
-        };
-      };
-
-    };
-
-    configurations = {
-
-      "mbund@live-iso" = { pkgs, ... }: {
-        imports = with inputs; [
-          common.home
-          cli.home
-          plasma.home
-          firefox.home
-        ];
-
-        home.packages = with pkgs; [
-          vscodium
-          virt-manager
-          godot
-          gparted
-        ];
-      };
-
-    };
+      nixosModules = builder ({ home, splitUser, configPath }:
+        home-manager.nixosModules.home-manager {
+          home-manager.useGlobalPkgs = true;
+          home-manager.useUserPackages = true;
+          home-manager.users.${builtins.head splitUser} = import configPath;
+        });
 
   };
 }
