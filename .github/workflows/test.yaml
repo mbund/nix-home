@@ -15,5 +15,5 @@ jobs:
     - name: Flake metadata
       run: nix flake metadata
 
-    - name: Check
-      run: nix flake check
+    - name: Flake outputs
+      run: nix flake show

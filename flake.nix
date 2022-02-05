@@ -14,6 +14,6 @@
 
   outputs = { self, ... } @ inputs: {
     homeConfigurations = inputs.mbund.homeConfigurations;
-    nixosModules = inputs.mbund.nixosModules;
+    homeNixOSModules = inputs.mbund.homeNixOSModules;
   };
 }
