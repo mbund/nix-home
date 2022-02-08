@@ -4,6 +4,7 @@
   inputs = {
     # users
     mbund.url = "./mbund";
+    nixos-installer.url = "./nixos-installer";
 
     # components
     common.url = "./common";
@@ -12,8 +13,14 @@
     firefox.url = "./firefox";
   };
 
-  outputs = { self, ... } @ inputs: {
-    homeConfigurations = inputs.mbund.homeConfigurations;
-    homeNixOSModules = inputs.mbund.homeNixOSModules;
+  outputs = { self, ... }@inputs: with inputs; {
+    homeConfigurations =
+      mbund.homeConfigurations //
+      nixos-installer.homeConfigurations;
+
+    homeNixOSModules =
+      mbund.homeNixOSModules //
+      nixos-installer.homeNixOSModules;
+
   };
 }

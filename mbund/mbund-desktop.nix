@@ -23,8 +23,6 @@
   home.packages = with pkgs; [
     (lutris.overrideAttrs (_: { buildInputs = [ xdelta ]; }))
     
-    zip
-    unzip
     mpv
     vlc
     chromium
@@ -39,13 +37,14 @@
     gimp
     onlyoffice-bin
     zoom
-    aspell
-    aspellDicts.en
+    aspell aspellDicts.en
   ];
 
   home.sessionVariables = {
     "EDITOR" = "neovim";
     "VISUAL" = "neovim";
   };
+
+  home.stateVersion = "21.11";
 
 }

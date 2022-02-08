@@ -19,18 +19,17 @@
         autojump
         fzf
         ncdu
-        nix-tree
         lynx
-        tmux
-        kitty
         lazygit
         curl
         wget
-
-        (nerdfonts.override { fonts = [ "Hasklig" ]; })
       ];
 
       fonts.fontconfig.enable = true;
+
+      programs.tmux = {
+        enable = true;
+      };
 
       programs.zsh = {
         enable = true;

@@ -17,3 +17,6 @@ jobs:
 
     - name: Flake outputs
       run: nix flake show
+
+    - name: Check
+      run: nix flake check

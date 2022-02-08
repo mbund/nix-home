@@ -20,11 +20,13 @@
 
       home.packages = with pkgs; [
         nix-index
+        nix-tree
+        # nix-prefetch-scripts
+        nixops
+        zip
+        unzip
       ];
 
-      home.username = "mbund";
-      home.homeDirectory = "/home/mbund";
-      home.stateVersion = "21.11";
       programs.home-manager.enable = true;
     };
   };

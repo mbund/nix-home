@@ -1,5 +1,5 @@
 {
-  description = "mbund's home-manager configuration for all systems";
+  description = "default nixos user home-manager configuration";
   
   inputs = {
     home-manager = {
@@ -18,8 +18,7 @@
   outputs = { self, nixpkgs, home-manager, ... } @ inputs:
     let
       homes = [
-        { system = "x86_64-linux"; user = "mbund@mbund-desktop"; }
-        { system = "x86_64-linux"; user = "mbund@marshmellow-roaster"; }
+        { system = "x86_64-linux"; user = "nixos@nixos-installer"; }
       ];
 
       builder = f: builtins.listToAttrs (builtins.map (home: {
