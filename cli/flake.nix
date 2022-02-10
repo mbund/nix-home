@@ -23,12 +23,23 @@
         lazygit
         curl
         wget
+
+        (nerdfonts.override { fonts = [ "Hasklig" ]; })
       ];
 
       fonts.fontconfig.enable = true;
 
       programs.tmux = {
         enable = true;
+
+        extraConfig = ''
+          unbind C-b
+          set -g prefix C-a
+          bind C-a send-prefix
+
+          set -s escape-time 0
+          set -g history-limit 50000
+        '';
       };
 
       programs.zsh = {
@@ -88,7 +99,7 @@
             lualine-nvim
             nvim-web-devicons
             dashboard-nvim
-            (pluginWithDeps bufferline-nvim [ nvim-web-devicons ])
+            bufferline-nvim
             gitsigns-nvim
             dracula-vim
             nvim-treesitter
