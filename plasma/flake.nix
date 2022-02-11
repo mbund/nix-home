@@ -3,7 +3,6 @@
 
   inputs = {
     one-dark-kde-theme = { url = "github:Prayag2/kde_onedark"; flake = false; };
-    fluent-icons = { url = "github:vinceliuice/Fluent-icon-theme"; flake = false; };
     kde-rounded-corners = { url = "github:matinlotfali/KDE-Rounded-Corners"; flake = false; };
   };
 
@@ -22,15 +21,16 @@
         };
       };
 
-      # home.file = builtins.listToAttrs (map (color: {
-      #   name = ".local/share/color-schemes/${color}.colors";
-      #   value = { "source" = inputs.one-dark-kde-theme + "/color-schemes/One-Dark/${color}.colors"; };
-      # }) [ "One-Dark-Blue" "One-Dark-Green" "One-Dark-Red" "One-Dark-Yellow" ]);
       home.file.".local/share/color-schemes/One-Dark-Blue.colors".source = inputs.one-dark-kde-theme + "/color-schemes/One-Dark/One-Dark-Blue.colors";
-      home.file.".local/share/icons/Fluent-Custom/64".source = inputs.fluent-icons + "/src/64";
-      home.file.".local/share/icons/Fluent-Custom/scalable".source = inputs.fluent-icons + "/src/scalable";
-      home.file.".local/share/icons/Fluent-Custom/symbolic".source = inputs.fluent-icons + "/src/symbolic";
-      home.file.".local/share/icons/Fluent-Custom/index.theme".source = inputs.fluent-icons + "/src/index.theme";
+      home.file.".local/share/color-schemes/One-Dark-Green.colors".source = inputs.one-dark-kde-theme + "/color-schemes/One-Dark/One-Dark-Green.colors";
+      home.file.".local/share/color-schemes/One-Dark-Red.colors".source = inputs.one-dark-kde-theme + "/color-schemes/One-Dark/One-Dark-Red.colors";
+      home.file.".local/share/color-schemes/One-Dark-Yellow.colors".source = inputs.one-dark-kde-theme + "/color-schemes/One-Dark/One-Dark-Yellow.colors";
+
+      home.file.".config/latte/main-dock.layout.latte".source = ./main-dock.layout.latte;
+
+      home.activation.latte-dock = ''
+        latte-dock --layout main-dock --replace &
+      '';
 
       services.kdeconnect = {
         enable = true;
@@ -55,12 +55,6 @@
           name = "kde-rounded-corners";
           version = "0.0.1";
 
-          #src = pkgs.fetchFromGitHub {
-          #  owner = "matinlotfali";
-          #  repo = "KDE-Rounded-Corners";
-          #  rev = "8ad8f5f5eff9d1625abc57cb24dc484d51f0e1bd";
-          #  sha256 = "sha256-N6DBsmHGTmLTKNxqgg7bn06BmLM2fLdtFG2AJo+benU=";
-          #};
           src = inputs.kde-rounded-corners;
           nativeBuildInputs = with pkgs; [
             cmake
