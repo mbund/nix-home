@@ -26,12 +26,6 @@
       home.file.".local/share/color-schemes/One-Dark-Red.colors".source = inputs.one-dark-kde-theme + "/color-schemes/One-Dark/One-Dark-Red.colors";
       home.file.".local/share/color-schemes/One-Dark-Yellow.colors".source = inputs.one-dark-kde-theme + "/color-schemes/One-Dark/One-Dark-Yellow.colors";
 
-      home.file.".config/latte/main-dock.layout.latte".source = ./main-dock.layout.latte;
-
-      home.activation.latte-dock = ''
-        latte-dock --layout main-dock --replace &
-      '';
-
       services.kdeconnect = {
         enable = true;
         indicator = true;
@@ -80,156 +74,176 @@
         
       ];
 
-      home.activation.kdeConfigs = let
-        toValue = v:
-          if v == null then
-            "--delete"
-          else if builtins.isString v then
-            "'" + v + "'"
-          else if builtins.isBool v then
-            "--type bool " + lib.boolToString v
-          else if builtins.isInt v then
-            builtins.toString v
-          else
-            builtins.abort ("Unknown value type: " ++ builtins.toString v);
-        configs = {
-          kwinrc = {
-            Compositing = {
-              GLCore = true;
-              OpenGLIsUnsafe = false;
-              MaxFPS = 144;
-              RefreshRate = 144;
-            };
-
-            Desktops = {
-              Id_1 = "7c099d80-a16d-4133-b1f8-d4fd92e73e71";
-              Id_2 = "6ccf0ea5-46df-4f08-ab39-b1fa4746ca49";
-              Id_3 = "2e95628f-98b9-4a00-96dd-d2184b8083c2";
-              Id_4 = "0a26cb7c-f464-4c43-b14a-46bb2f29ebad";
-              Id_5 = "74e4581d-c2bd-4752-9b74-bd120c4ac95e";
-              Id_6 = "083b5330-5262-4a37-9ef6-89d7752294b1";
-              Id_7 = "e78631ff-98ac-4bd6-a2b6-1bca799f75c7";
-              Id_8 = "760b6320-d6c5-4623-a0e7-8e0c676de3a2";
-              Id_9 = "7f9dbd6d-edfe-47b6-bafb-1f8e14562778";
-              Id_10 = "5d70cb18-c505-4811-9f42-bf3cbd37d5b0";
-              Name_1 = "1";
-              Name_2 = "2";
-              Name_3 = "3";
-              Name_4 = "4";
-              Name_5 = "5";
-              Name_6 = "6";
-              Name_7 = "7";
-              Name_8 = "8";
-              Name_9 = "9";
-              Name_10 = "10";
-              Number = 10;
-              Rows = 1;
-            };
-
-            # Workspace Behavior -> Desktop Effects
-            Plugins = {
-              slideEnabled = false;
-              kwin4_effect_shapecornersEnabled = true;
-            };
-
-            TabBox = { # Task Switcher
-              # Visualization
-              LayoutName = "thumbnail_grid";
-            };
-
-            Windows = {
-              RollOverDesktops = false;
-              BorderlessMaximizedWindows = false;
-            };
-          };
-
-          "shapecorners.conf".General = {
-            dsp = true;
-            roundness = 3;
-          };
-
-          kdeglobals.KDE.SingleClick = false;
-
-          kcminputrc = { # Input Devices
-            Keyboard.NumLock = 0; # Keyboard -> NumLock on Plasma Startup -> Turn on
-            Mouse.XLbInptAccelProfileFlat = true; # Mouse -> Acceleration profile -> Flat
-          };
-
-          krunnerrc = { # Search -> KRunner
-            General.FreeFloating = true; # Position on screen -> Center
-          };
-          
-          klaunchrc = { # Appearance -> Launch Feedback
-            # No Feedback
-            BusyCursorSettings.Bouncing = false;
-            FeedbackStyle.BusyCursor = false;
-          };
-
-          kscreenlockerrc.Daemon = { # Workspace -> Screen Locking
-            Autolock = false;
-            LockOnResume = false;
-          };
-          
-          ksmserverrc.General = { # Startup and Shutdown -> Desktop Session
-            confirmLogout = false;
-            loginMode = "emptySession";
-            offerShutdown = false;
-          };
-
-          kglobalshortcutsrc = {
-            plasmashell = {
-              "activate task manager entry 6" = "none,Meta+6,Activate Task Manager Entry 6";
-              "activate task manager entry 7" = "none,Meta+7,Activate Task Manager Entry 7";
-              "activate task manager entry 8" = "none,Meta+8,Activate Task Manager Entry 8";
-              "activate task manager entry 9" = "none,Meta+9,Activate Task Manager Entry 9";
-              "activate task manager entry 10" = "none,Meta+0,Activate Task Manager Entry 10";
-            };
-            kwin = {
-              "Window Close" = "Meta+C,Alt+F4,Close Window";
-              "Window Fullscreen" = "Meta+Shift+F,none,Make Window Fullscreen";
-              "Window Maximize" = "Meta+F,Meta+PgUp,Maximize Window";
-              "Window Minimize" = "Meta+Alt+F,Meta+PgDown,Minimize Window";
-              "Window On All Desktops" = "Meta+V,none,Keep Window on All Desktops";
-
-              "Switch to Desktop 1" = "Meta+1,Ctrl+F1,Switch to Desktop 1";
-              "Switch to Desktop 2" = "Meta+2,Ctrl+F2,Switch to Desktop 2";
-              "Switch to Desktop 3" = "Meta+3,Ctrl+F3,Switch to Desktop 3";
-              "Switch to Desktop 4" = "Meta+4,Ctrl+F4,Switch to Desktop 4";
-              "Switch to Desktop 5" = "Meta+5,none,Switch to Desktop 5";
-              "Switch to Desktop 6" = "Meta+6,none,Switch to Desktop 6";
-              "Switch to Desktop 7" = "Meta+7,none,Switch to Desktop 7";
-              "Switch to Desktop 8" = "Meta+8,none,Switch to Desktop 8";
-              "Switch to Desktop 9" = "Meta+9,none,Switch to Desktop 9";
-              "Switch to Desktop 10" = "Meta+0,none,Switch to Desktop 10";
-
-              "Switch to Screen 0" = "Meta+A,none,Switch to Screen 0";
-              "Switch to Screen 1" = "Meta+S,none,Switch to Screen 1";
-              "Switch to Screen 2" = "Meta+D,none,Switch to Screen 2";
-              "Window to Screen 0" = "Meta+Shift+A,none,Window to Screen 0";
-              "Window to Screen 1" = "Meta+Shift+S,none,Window to Screen 1";
-              "Window to Screen 2" = "Meta+Shift+D,none,Window to Screen 2";
-
-              "Window to Desktop 1" = "Meta+!,none,Window to Desktop 1";
-              "Window to Desktop 2" = "Meta+@,none,Window to Desktop 2";
-              "Window to Desktop 3" = "Meta+#,none,Window to Desktop 3";
-              "Window to Desktop 4" = "Meta+$,none,Window to Desktop 4";
-              "Window to Desktop 5" = "Meta+%,none,Window to Desktop 5";
-              "Window to Desktop 6" = "Meta+^,none,Window to Desktop 6";
-              "Window to Desktop 7" = "Meta+&,none,Window to Desktop 7";
-              "Window to Desktop 8" = "Meta+*,none,Window to Desktop 8";
-              "Window to Desktop 9" = "Meta+(,none,Window to Desktop 9";
-
-            };
-          };
+      systemd.user.services.kde-config = {
+        Unit = {
+          Description = "Home-manager Latte Dock host";
         };
-        lines = lib.flatten (lib.mapAttrsToList (file: groups:
-          lib.mapAttrsToList (group: keys:
-            lib.mapAttrsToList (key: value:
-              "test -f ~/.config/'${file}' && ${pkgs.libsForQt5.kconfig}/bin/kwriteconfig5 --file ~/.config/'${file}' --group '${group}' --key '${key}' ${
-                toValue value
-              }") keys) groups) configs);
-      in
-        lib.hm.dag.entryAfter [ "writeBoundary" ] (builtins.concatStringsSep "\n" lines);
+
+        Install = {
+          WantedBy = [ "graphical-session.target" ];
+        };
+        
+        Service = {
+          ExecStart = let
+            toValue = v:
+              if v == null then
+                "--delete"
+              else if builtins.isString v then
+                "'" + v + "'"
+              else if builtins.isBool v then
+                "--type bool " + lib.boolToString v
+              else if builtins.isInt v then
+                builtins.toString v
+              else
+                builtins.abort ("Unknown value type: " ++ builtins.toString v);
+            configs = {
+              kwinrc = {
+                Compositing = {
+                  GLCore = true;
+                  OpenGLIsUnsafe = false;
+                  MaxFPS = 144;
+                  RefreshRate = 144;
+                };
+
+                Desktops = {
+                  Id_1 = "7c099d80-a16d-4133-b1f8-d4fd92e73e71";
+                  Id_2 = "6ccf0ea5-46df-4f08-ab39-b1fa4746ca49";
+                  Id_3 = "2e95628f-98b9-4a00-96dd-d2184b8083c2";
+                  Id_4 = "0a26cb7c-f464-4c43-b14a-46bb2f29ebad";
+                  Id_5 = "74e4581d-c2bd-4752-9b74-bd120c4ac95e";
+                  Id_6 = "083b5330-5262-4a37-9ef6-89d7752294b1";
+                  Id_7 = "e78631ff-98ac-4bd6-a2b6-1bca799f75c7";
+                  Id_8 = "760b6320-d6c5-4623-a0e7-8e0c676de3a2";
+                  Id_9 = "7f9dbd6d-edfe-47b6-bafb-1f8e14562778";
+                  Id_10 = "5d70cb18-c505-4811-9f42-bf3cbd37d5b0";
+                  Name_1 = "1";
+                  Name_2 = "2";
+                  Name_3 = "3";
+                  Name_4 = "4";
+                  Name_5 = "5";
+                  Name_6 = "6";
+                  Name_7 = "7";
+                  Name_8 = "8";
+                  Name_9 = "9";
+                  Name_10 = "10";
+                  Number = 10;
+                  Rows = 1;
+                };
+
+                # Workspace Behavior -> Desktop Effects
+                Plugins = {
+                  slideEnabled = false;
+                  kwin4_effect_shapecornersEnabled = true;
+                };
+
+                TabBox = { # Task Switcher
+                  # Visualization
+                  LayoutName = "thumbnail_grid";
+                };
+
+                Windows = {
+                  RollOverDesktops = false;
+                  BorderlessMaximizedWindows = false;
+                };
+              };
+
+              "shapecorners.conf".General = {
+                dsp = true;
+                roundness = 3;
+              };
+
+              kdeglobals.KDE.SingleClick = false;
+
+              kcminputrc = { # Input Devices
+                Keyboard.NumLock = 0; # Keyboard -> NumLock on Plasma Startup -> Turn on
+                Mouse.XLbInptAccelProfileFlat = true; # Mouse -> Acceleration profile -> Flat
+              };
+
+              krunnerrc = { # Search -> KRunner
+                General.FreeFloating = true; # Position on screen -> Center
+              };
+              
+              klaunchrc = { # Appearance -> Launch Feedback
+                # No Feedback
+                BusyCursorSettings.Bouncing = false;
+                FeedbackStyle.BusyCursor = false;
+              };
+
+              kscreenlockerrc.Daemon = { # Workspace -> Screen Locking
+                Autolock = false;
+                LockOnResume = false;
+              };
+              
+              ksmserverrc.General = { # Startup and Shutdown -> Desktop Session
+                confirmLogout = false;
+                loginMode = "emptySession";
+                offerShutdown = false;
+              };
+
+              kglobalshortcutsrc = {
+                plasmashell = {
+                  "activate task manager entry 6" = "none,Meta+6,Activate Task Manager Entry 6";
+                  "activate task manager entry 7" = "none,Meta+7,Activate Task Manager Entry 7";
+                  "activate task manager entry 8" = "none,Meta+8,Activate Task Manager Entry 8";
+                  "activate task manager entry 9" = "none,Meta+9,Activate Task Manager Entry 9";
+                  "activate task manager entry 10" = "none,Meta+0,Activate Task Manager Entry 10";
+                };
+                kwin = {
+                  "Window Close" = "Meta+C,Alt+F4,Close Window";
+                  "Window Fullscreen" = "Meta+Shift+F,none,Make Window Fullscreen";
+                  "Window Maximize" = "Meta+F,Meta+PgUp,Maximize Window";
+                  "Window Minimize" = "Meta+Alt+F,Meta+PgDown,Minimize Window";
+                  "Window On All Desktops" = "Meta+V,none,Keep Window on All Desktops";
+
+                  "Switch to Desktop 1" = "Meta+1,Ctrl+F1,Switch to Desktop 1";
+                  "Switch to Desktop 2" = "Meta+2,Ctrl+F2,Switch to Desktop 2";
+                  "Switch to Desktop 3" = "Meta+3,Ctrl+F3,Switch to Desktop 3";
+                  "Switch to Desktop 4" = "Meta+4,Ctrl+F4,Switch to Desktop 4";
+                  "Switch to Desktop 5" = "Meta+5,none,Switch to Desktop 5";
+                  "Switch to Desktop 6" = "Meta+6,none,Switch to Desktop 6";
+                  "Switch to Desktop 7" = "Meta+7,none,Switch to Desktop 7";
+                  "Switch to Desktop 8" = "Meta+8,none,Switch to Desktop 8";
+                  "Switch to Desktop 9" = "Meta+9,none,Switch to Desktop 9";
+                  "Switch to Desktop 10" = "Meta+0,none,Switch to Desktop 10";
+
+                  "Switch to Screen 0" = "Meta+A,none,Switch to Screen 0";
+                  "Switch to Screen 1" = "Meta+S,none,Switch to Screen 1";
+                  "Switch to Screen 2" = "Meta+D,none,Switch to Screen 2";
+                  "Window to Screen 0" = "Meta+Shift+A,none,Window to Screen 0";
+                  "Window to Screen 1" = "Meta+Shift+S,none,Window to Screen 1";
+                  "Window to Screen 2" = "Meta+Shift+D,none,Window to Screen 2";
+
+                  "Window to Desktop 1" = "Meta+!,none,Window to Desktop 1";
+                  "Window to Desktop 2" = "Meta+@,none,Window to Desktop 2";
+                  "Window to Desktop 3" = "Meta+#,none,Window to Desktop 3";
+                  "Window to Desktop 4" = "Meta+$,none,Window to Desktop 4";
+                  "Window to Desktop 5" = "Meta+%,none,Window to Desktop 5";
+                  "Window to Desktop 6" = "Meta+^,none,Window to Desktop 6";
+                  "Window to Desktop 7" = "Meta+&,none,Window to Desktop 7";
+                  "Window to Desktop 8" = "Meta+*,none,Window to Desktop 8";
+                  "Window to Desktop 9" = "Meta+(,none,Window to Desktop 9";
+
+                };
+              };
+            };
+
+            lines = lib.flatten (lib.mapAttrsToList (file: groups:
+              lib.mapAttrsToList (group: keys:
+                lib.mapAttrsToList (key: value:
+                  "test -f ~/.config/'${file}' && ${pkgs.libsForQt5.kconfig}/bin/kwriteconfig5 --file ~/.config/'${file}' --group '${group}' --key '${key}' ${
+                    toValue value
+                  }") keys) groups) configs);
+
+            script = pkgs.writeShellScript "latte-start.sh" ''
+              ${builtins.concatStringsSep "\n" lines}
+
+              kquitapp5 plasmashell || killall plasmashell && kstart5 plasmashell
+            '';
+          in
+            "${script}";
+
+        };
+      };
 
     };
   };

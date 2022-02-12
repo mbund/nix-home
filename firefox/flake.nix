@@ -38,8 +38,8 @@
 
             "widget.non-native-theme.enabled" = false;
 
-            "browser.newtabpage.enabled" = false;
-            "browser.startup.homepage" = "about:blank";
+            # "browser.newtabpage.enabled" = false;
+            # "browser.startup.homepage" = "about:blank";
 
             "browser.newtabpage.activity-stream.feeds.telemetry" = false;
             "browser.newtabpage.activity-stream.telemetry" = false;
