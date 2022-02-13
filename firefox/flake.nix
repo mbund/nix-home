@@ -2,8 +2,8 @@
   description = "Firefox";
 
   inputs = {
-    nixpkgs.url = "nixpkgs";
-    nur.url = "nur";
+    nixpkgs.url = "flake:nixpkgs";
+    nur.url = "flake:nur";
   };
 
   outputs = { self, nixpkgs, nur, ... }: {
