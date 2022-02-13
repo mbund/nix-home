@@ -4,7 +4,7 @@
   inputs = {
     home-manager = {
       url = "github:nix-community/home-manager";
-      inputs.nixpkgs.url = "nixpkgs";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
 
     common.follows = "common";

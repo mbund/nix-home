@@ -32,6 +32,8 @@
       programs.tmux = {
         enable = true;
 
+        plugins = with pkgs.tmuxPlugins; [ resurrect ];
+
         extraConfig = ''
           unbind C-b
           set -g prefix C-a
@@ -39,6 +41,9 @@
 
           set -s escape-time 0
           set -g history-limit 50000
+          
+          set -g base-index 1
+          setw -g pane-base-index 1
         '';
       };
 

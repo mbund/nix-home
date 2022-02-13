@@ -9,7 +9,7 @@
 
   nixpkgs.config.allowUnfreePredicate = pkg: builtins.elem (lib.getName pkg) [
     "steam" "steam-original" "steam-runtime" # for lutris
-    "vscode" "vscode-extension-ms-vsliveshare-vsliveshare"
+    "code" "vscode"
     "discord"
     "zoom"
     "spotify-unwrapped"
@@ -38,6 +38,7 @@
     onlyoffice-bin
     zoom
     aspell aspellDicts.en
+    vscode-fhs
   ];
 
   home.sessionVariables = {

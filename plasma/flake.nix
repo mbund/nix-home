@@ -14,7 +14,7 @@
           name = "Breeze";
           package = pkgs.gnome-breeze;
         };
-        
+
         iconTheme = {
           name = "Breeze";
           package = pkgs.gnome.adwaita-icon-theme;
@@ -71,19 +71,28 @@
           '';
 
         })
-        
+
       ];
 
       systemd.user.services.kde-config = {
         Unit = {
-          Description = "Home-manager Latte Dock host";
+          Description = "Home-manager KDE configuration writing";
         };
 
         Install = {
-          WantedBy = [ "graphical-session.target" ];
+          WantedBy = [ "plasma-kglobalaccel.service" "plasma-kwin_x11.service" ];
+          # WantedBy = [ "graphical-session.target"  ];
         };
-        
+
         Service = {
+          Type = "oneshot";
+          RemainAfterExit = true;
+          ExecStartPost = let
+            script = pkgs.writeShellScript "restart-kde.sh" ''
+              systemctl restart --user plasma-kglobalaccel.service;
+              # systemctl restart --user plasma-kwin_x11.service
+            ''; in "${script}";
+
           ExecStart = let
             toValue = v:
               if v == null then
@@ -106,25 +115,25 @@
                 };
 
                 Desktops = {
-                  Id_1 = "7c099d80-a16d-4133-b1f8-d4fd92e73e71";
-                  Id_2 = "6ccf0ea5-46df-4f08-ab39-b1fa4746ca49";
-                  Id_3 = "2e95628f-98b9-4a00-96dd-d2184b8083c2";
-                  Id_4 = "0a26cb7c-f464-4c43-b14a-46bb2f29ebad";
-                  Id_5 = "74e4581d-c2bd-4752-9b74-bd120c4ac95e";
-                  Id_6 = "083b5330-5262-4a37-9ef6-89d7752294b1";
-                  Id_7 = "e78631ff-98ac-4bd6-a2b6-1bca799f75c7";
-                  Id_8 = "760b6320-d6c5-4623-a0e7-8e0c676de3a2";
-                  Id_9 = "7f9dbd6d-edfe-47b6-bafb-1f8e14562778";
-                  Id_10 = "5d70cb18-c505-4811-9f42-bf3cbd37d5b0";
-                  Name_1 = "1";
-                  Name_2 = "2";
-                  Name_3 = "3";
-                  Name_4 = "4";
-                  Name_5 = "5";
-                  Name_6 = "6";
-                  Name_7 = "7";
-                  Name_8 = "8";
-                  Name_9 = "9";
+                  Id_1    = "7c099d80-a16d-4133-b1f8-d4fd92e73e71";
+                  Id_2    = "6ccf0ea5-46df-4f08-ab39-b1fa4746ca49";
+                  Id_3    = "2e95628f-98b9-4a00-96dd-d2184b8083c2";
+                  Id_4    = "0a26cb7c-f464-4c43-b14a-46bb2f29ebad";
+                  Id_5    = "74e4581d-c2bd-4752-9b74-bd120c4ac95e";
+                  Id_6    = "083b5330-5262-4a37-9ef6-89d7752294b1";
+                  Id_7    = "e78631ff-98ac-4bd6-a2b6-1bca799f75c7";
+                  Id_8    = "760b6320-d6c5-4623-a0e7-8e0c676de3a2";
+                  Id_9    = "7f9dbd6d-edfe-47b6-bafb-1f8e14562778";
+                  Id_10   = "5d70cb18-c505-4811-9f42-bf3cbd37d5b0";
+                  Name_1  = "1";
+                  Name_2  = "2";
+                  Name_3  = "3";
+                  Name_4  = "4";
+                  Name_5  = "5";
+                  Name_6  = "6";
+                  Name_7  = "7";
+                  Name_8  = "8";
+                  Name_9  = "9";
                   Name_10 = "10";
                   Number = 10;
                   Rows = 1;
@@ -162,7 +171,7 @@
               krunnerrc = { # Search -> KRunner
                 General.FreeFloating = true; # Position on screen -> Center
               };
-              
+
               klaunchrc = { # Appearance -> Launch Feedback
                 # No Feedback
                 BusyCursorSettings.Bouncing = false;
@@ -173,7 +182,7 @@
                 Autolock = false;
                 LockOnResume = false;
               };
-              
+
               ksmserverrc.General = { # Startup and Shutdown -> Desktop Session
                 confirmLogout = false;
                 loginMode = "emptySession";
@@ -233,14 +242,7 @@
                   "test -f ~/.config/'${file}' && ${pkgs.libsForQt5.kconfig}/bin/kwriteconfig5 --file ~/.config/'${file}' --group '${group}' --key '${key}' ${
                     toValue value
                   }") keys) groups) configs);
-
-            script = pkgs.writeShellScript "latte-start.sh" ''
-              ${builtins.concatStringsSep "\n" lines}
-
-              kquitapp5 plasmashell || killall plasmashell && kstart5 plasmashell
-            '';
-          in
-            "${script}";
+          in "${builtins.concatStringsSep "\n" lines}";
 
         };
       };
