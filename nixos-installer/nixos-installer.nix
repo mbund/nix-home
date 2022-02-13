@@ -12,8 +12,6 @@
     unzip
     mpv
     vlc
-    # gparted
-    # gptfdisk
   ];
 
   home.sessionVariables = {
@@ -33,7 +31,7 @@
     Service = {
       ExecStart = let
         script = pkgs.writeShellScript "latte-start.sh" ''
-          ${pkgs.coreutils}/bin/cp -f ${./HomeManagerDock.layout.latte} /home/mbund/.config/latte/HomeManagerDock.layout.latte
+          ${pkgs.coreutils}/bin/cp -f ${./HomeManagerDock.layout.latte} /home/nixos/.config/latte/HomeManagerDock.layout.latte
           ${pkgs.latte-dock}/bin/latte-dock --layout HomeManagerDock --replace
         '';
       in "${script}";
