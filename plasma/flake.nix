@@ -77,12 +77,16 @@
       systemd.user.services.home-manager-kde-config = {
         Unit = {
           Description = "Home-manager KDE configuration writing";
+
+          After = [ "app.slice" ];
+          Requires = [ "app.slice" ];
         };
 
-        Install = {
-          WantedBy = [ "plasma-kglobalaccel.service" "plasma-kwin_x11.service" ];
-          # WantedBy = [ "graphical-session.target"  ];
-        };
+        # Install = {
+        #   # WantedBy = [ "plasma-kglobalaccel.service" "plasma-kwin_x11.service" ];
+        #   # WantedBy = [ "graphical-session.target"  ];
+        #   WantedBy = [ "default.target"  ];
+        # };
 
         Service = {
           Type = "oneshot";
@@ -90,7 +94,7 @@
           ExecStartPost = let
             script = pkgs.writeShellScript "restart-kde.sh" ''
               systemctl restart --user plasma-kglobalaccel.service;
-              # systemctl restart --user plasma-kwin_x11.service
+              systemctl restart --user plasma-kwin_x11.service
             ''; in "${script}";
 
           ExecStart = let
@@ -243,7 +247,10 @@
                     toValue value
                   }") keys) groups) configs);
 
-            script = pkgs.writeShellScript "write-kde-configuration.sh" "${builtins.concatStringsSep "\n" lines}";
+            script = pkgs.writeShellScript "write-kde-configuration.sh" ''
+              ${pkgs.coreutils}/bin/touch ${config.home.homeDirectory}/.config/shapecorners.conf
+              ${builtins.concatStringsSep "\n" lines}
+            '';
           in "${script}";
 
         };
