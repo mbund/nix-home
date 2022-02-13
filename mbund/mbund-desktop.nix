@@ -46,7 +46,7 @@
     "VISUAL" = "neovim";
   };
 
-  systemd.user.services.latte-dock = {
+  systemd.user.services.home-manager-latte-dock = {
     Unit = {
       Description = "Home-manager Latte Dock host";
     };
@@ -58,7 +58,7 @@
     Service = {
       ExecStart = let
         script = pkgs.writeShellScript "latte-start.sh" ''
-          ${pkgs.coreutils}/bin/cp -f ${./HomeManagerDock.layout.latte} /home/mbund/.config/latte/HomeManagerDock.layout.latte
+          ${pkgs.coreutils}/bin/cp -f ${./HomeManagerDock.layout.latte} ${config.home.homeDirectory}/.config/latte/HomeManagerDock.layout.latte
           ${pkgs.latte-dock}/bin/latte-dock --layout HomeManagerDock --replace
         '';
       in "${script}";

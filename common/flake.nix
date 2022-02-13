@@ -23,11 +23,9 @@
         nix-tree
         nix-prefetch-scripts
         nixops
-        zip
-        unzip
       ];
 
-      systemd.user.services.setup-home = {
+      systemd.user.services.home-manager-setup-home = {
         Unit = {
           Description = "Setup home directory";
         };
@@ -40,9 +38,9 @@
           Type = "oneshot";
           RemainAfterExit = true;
           ExecStart = let
-            homeDir = "/home/mbund";
+            homeDir = config.home.homeDirectory;
 
-            sync = source: destination: "[ -d ${source} ] && ${pkgs.rsync}/bin/rsync -av --ignore-existing --remove-source-files ${source} ${destination} && ${pkgs.coreutils}/bin/rmdir -v ${source}";
+            sync = source: destination: "if [ -d ${source} ]; then ${pkgs.rsync}/bin/rsync -av --ignore-existing --remove-source-files ${source} ${destination} && ${pkgs.coreutils}/bin/rmdir -v ${source}; fi";
 
             script = pkgs.writeShellScript "setup-home.sh" ''
               mkdir -p ${homeDir}/data/{desktop,documents,downloads,music,pictures,public,templates,videos,misc,isos}

@@ -74,7 +74,7 @@
 
       ];
 
-      systemd.user.services.kde-config = {
+      systemd.user.services.home-manager-kde-config = {
         Unit = {
           Description = "Home-manager KDE configuration writing";
         };
@@ -239,10 +239,12 @@
             lines = lib.flatten (lib.mapAttrsToList (file: groups:
               lib.mapAttrsToList (group: keys:
                 lib.mapAttrsToList (key: value:
-                  "test -f ~/.config/'${file}' && ${pkgs.libsForQt5.kconfig}/bin/kwriteconfig5 --file ~/.config/'${file}' --group '${group}' --key '${key}' ${
+                  "test -f ${config.home.homeDirectory}/.config/'${file}' && ${pkgs.libsForQt5.kconfig}/bin/kwriteconfig5 --file ${config.home.homeDirectory}/.config/'${file}' --group '${group}' --key '${key}' ${
                     toValue value
                   }") keys) groups) configs);
-          in "${builtins.concatStringsSep "\n" lines}";
+
+            script = pkgs.writeShellScript "write-kde-configuration.sh" "${builtins.concatStringsSep "\n" lines}";
+          in "${script}";
 
         };
       };

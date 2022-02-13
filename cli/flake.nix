@@ -23,6 +23,8 @@
         lazygit
         curl
         wget
+        zip
+        unzip
 
         (nerdfonts.override { fonts = [ "Hasklig" ]; })
       ];
