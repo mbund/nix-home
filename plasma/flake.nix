@@ -77,16 +77,11 @@
       systemd.user.services.home-manager-kde-config = {
         Unit = {
           Description = "Home-manager KDE configuration writing";
-
-          After = [ "app.slice" ];
-          Requires = [ "app.slice" ];
         };
 
-        # Install = {
-        #   # WantedBy = [ "plasma-kglobalaccel.service" "plasma-kwin_x11.service" ];
-        #   # WantedBy = [ "graphical-session.target"  ];
-        #   WantedBy = [ "default.target"  ];
-        # };
+        Install = {
+          WantedBy = [ "plasma-kglobalaccel.service" "plasma-kwin_x11.service" ];
+        };
 
         Service = {
           Type = "oneshot";

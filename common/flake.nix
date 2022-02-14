@@ -28,14 +28,11 @@
       systemd.user.services.home-manager-setup-home = {
         Unit = {
           Description = "Setup home directory";
-
-          After = [ "app.slice" ];
-          Requires = [ "app.slice" ];
         };
 
-        # Install = {
-        #   WantedBy = [ "default.target" ];
-        # };
+        Install = {
+          WantedBy = [ "default.target" ];
+        };
         
         Service = {
           Type = "oneshot";

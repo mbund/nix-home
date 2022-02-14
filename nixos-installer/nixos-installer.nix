@@ -22,14 +22,11 @@
   systemd.user.services.home-manager-latte-dock = {
     Unit = {
       Description = "Home-manager Latte Dock host";
-
-      After = [ "app.slice" ];
-      Requires = [ "app.slice" ];
     };
 
-    # Install = {
-    #   WantedBy = [ "default.target" ];
-    # };
+    Install = {
+      WantedBy = [ "graphical-session.target" ];
+    };
 
     Service = {
       ExecStart = let
