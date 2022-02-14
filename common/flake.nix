@@ -13,9 +13,6 @@
         publicShare = "$HOME/data/public";
         templates = "$HOME/data/templates";
         videos = "$HOME/data/videos";
-        extraConfig = {
-          XDG_MISC_DIR = "$HOME/data/misc";
-        };
       };
 
       home.packages = with pkgs; [
@@ -43,7 +40,7 @@
             sync = source: destination: "if [ -d ${source} ]; then ${pkgs.rsync}/bin/rsync -av --ignore-existing --remove-source-files ${source} ${destination} && ${pkgs.coreutils}/bin/rmdir -v ${source}; fi";
 
             script = pkgs.writeShellScript "setup-home.sh" ''
-              mkdir -p ${homeDir}/data/{desktop,documents,downloads,music,pictures,public,templates,videos,misc,isos}
+              mkdir -p ${homeDir}/data/{desktop,documents,downloads,music,pictures,public,templates,videos}
 
               ${sync "${homeDir}/Desktop/" "${homeDir}/data/desktop"}
               ${sync "${homeDir}/Documents/" "${homeDir}/data/documents"}
