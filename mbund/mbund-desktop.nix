@@ -42,8 +42,8 @@
   ];
 
   home.sessionVariables = {
-    "EDITOR" = "neovim";
-    "VISUAL" = "neovim";
+    "EDITOR" = "nvim";
+    "VISUAL" = "nvim";
   };
 
   systemd.user.services.home-manager-latte-dock = {
