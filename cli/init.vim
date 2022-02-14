@@ -1,8 +1,7 @@
 set exrc
 set guicursor=
 set relativenumber
-set nu
-set relativenumber
+set number
 set nohlsearch
 set hidden
 set noerrorbells

@@ -75,6 +75,7 @@
         };
 
         initExtra = ''
+          # Enable vi mode
           bindkey -v
         '';
       };
