@@ -43,9 +43,11 @@
 
           set -s escape-time 0
           set -g history-limit 50000
-          
+
           set -g base-index 1
           setw -g pane-base-index 1
+
+          set-option -g default-shell ${pkgs.zsh}/bin/zsh
         '';
       };
 
@@ -213,11 +215,6 @@
         };
       };
 
-      # home.file.".bashrc".text = ''
-      #   # Set zsh has the default shell if it isn't already
-      #   export SHELL=`which zsh`
-      #   [ -z "$ZSH_VERSION" ] && exec "$SHELL"
-      # '';
     };
   };
 }
