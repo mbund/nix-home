@@ -25,6 +25,7 @@
         wget
         zip
         unzip
+        xclip
 
         (nerdfonts.override { fonts = [ "Hasklig" ]; })
       ];
@@ -92,6 +93,7 @@
           neovim-remote
           gcc # a c compiler is required for nvim-treesitter
           tree-sitter
+          xclip
 
           rnix-lsp
           haskell-language-server
@@ -185,6 +187,7 @@
           format = pkgs.lib.concatStrings [
             "$username" "$hostname" "$directory"
             "$git_branch" "$git_state" "$git_status"
+            "$env_var"
             "$cmd_duration"
             "$line_break"
             "$jobs" "$battery" "$character"
@@ -210,6 +213,10 @@
             success_symbol = "[λ](bold green)";
             error_symbol = "[λ](bold red)";
             vicmd_symbol = "[λ](bold yellow)";
+          };
+          env_var.CURRENT_PROJECT = {
+            variable = "CURRENT_PROJECT";
+            format = "[❆$env_value](bold blue) ";
           };
           package.disabled = true;
         };
