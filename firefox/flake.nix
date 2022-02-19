@@ -2,8 +2,8 @@
   description = "Firefox";
 
   inputs = {
-    nixpkgs.url = "flake:nixpkgs";
-    nur.url = "flake:nur";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-21.11";
+    nur.url = "github:nix-community/NUR";
   };
 
   outputs = { self, nixpkgs, nur, ... }: {

@@ -8,10 +8,14 @@
     diagnosticls-configs-nvim = { url = "github:creativenull/diagnosticls-configs-nvim"; flake = false; };
     vim-windowswap = { url = "github:wesQ3/vim-windowswap"; flake = false; };
     zen-mode-nvim = { url = "github:folke/zen-mode.nvim"; flake = false; };
+
+    nixpkgs-master.url = "github:NixOS/nixpkgs/master";
   };
 
-  outputs = { self, ... } @ inputs: {
-    home = { pkgs, ... }: {
+  outputs = { self, ... }@inputs: {
+    home = { pkgs, ... }: let
+      masterpkgs = import inputs.nixpkgs-master { system = pkgs.system; };
+    in {
       home.packages = with pkgs; [
         ranger
         neofetch
@@ -85,6 +89,8 @@
 
       programs.neovim = {
         enable = true;
+        package = masterpkgs.neovim-unwrapped;
+
         extraConfig = ''
           source ~/nix-home/cli/init.vim
         '';
@@ -101,7 +107,7 @@
           nodePackages.vim-language-server
         ];
 
-        plugins = with pkgs.vimPlugins; let
+        plugins = with pkgs.vimPlugins; with masterpkgs.vimPlugins; let
             pluginWithDeps = plugin: deps: plugin.overrideAttrs (_: { dependencies = deps; });
             externalPlugin = pkgs.vimUtils.buildVimPluginFrom2Nix;
           in [
@@ -224,4 +230,5 @@
 
     };
   };
+
 }

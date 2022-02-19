@@ -14,10 +14,10 @@
 
   outputs = { self, ... }@inputs: with inputs; {
     homeConfigurations =
-      mbund.homeConfigurations;
+      mbund.homeConfigurations inputs;
 
     homeNixOSModules =
-      mbund.homeNixOSModules;
+      mbund.homeNixOSModules inputs;
 
   };
 }

@@ -1,5 +1,14 @@
-{ config, lib, pkgs, inputs, ... }:
-{
+{ config, lib, pkgs, inputs, ... }: let
+
+  masterpkgs = import inputs.nixpkgs-master {
+    system = pkgs.system;
+
+    config.allowUnfreePredicate = pkg: builtins.elem (pkgs.lib.getName pkg) [
+      "discord"
+    ];
+  };
+
+in {
   imports = with inputs; [
     common.home
     cli.home
@@ -7,10 +16,9 @@
     firefox.home
   ];
 
-  nixpkgs.config.allowUnfreePredicate = pkg: builtins.elem (lib.getName pkg) [
+  nixpkgs.config.allowUnfreePredicate = pkg: builtins.elem (pkgs.lib.getName pkg) [
     "steam" "steam-original" "steam-runtime" # for lutris
     "code" "vscode"
-    "discord"
     "zoom"
     "spotify-unwrapped"
   ];
@@ -22,14 +30,14 @@
 
   home.packages = with pkgs; [
     (lutris.overrideAttrs (_: { buildInputs = [ xdelta ]; }))
-    
+
     mpv
     vlc
     chromium
     virt-manager
     godot
     gparted
-    discord
+    masterpkgs.discord
     spotify-tui
     spotify-unwrapped
     krita

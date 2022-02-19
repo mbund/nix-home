@@ -7,15 +7,11 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    common.follows = "common";
-    cli.follows = "cli";
-    plasma.follows = "plasma";
-    firefox.follows = "firefox";
-
-    nixpkgs.url = "flake:nixpkgs";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-21.11";
+    nixpkgs-master.url = "github:NixOS/nixpkgs/master";
   };
 
-  outputs = { self, nixpkgs, home-manager, ... } @ inputs:
+  outputs = { self, nixpkgs, home-manager, ... }@inputs:
     let
       homes = [
         { system = "x86_64-linux"; user = "mbund@mbund-desktop"; }
@@ -36,22 +32,22 @@
       }) homes);
     in {
 
-      homeConfigurations = builder ({ home, splitUser, configPath }:
+      homeConfigurations = parentInputs: builder ({ home, splitUser, configPath }:
         home-manager.lib.homeManagerConfiguration {
           system = home.system;
           stateVersion = "21.11";
           homeDirectory = "/home/${builtins.head splitUser}";
           username = builtins.head splitUser;
           configuration = import configPath;
-          extraSpecialArgs = { inherit inputs; };
+          extraSpecialArgs = { inputs = parentInputs // inputs; };
         }
       );
 
-      homeNixOSModules = builder ({ home, splitUser, configPath }: {
+      homeNixOSModules = parentInputs: builder ({ home, splitUser, configPath }: {
         home-manager = {
           useGlobalPkgs = true;
           useUserPackages = true;
-          extraSpecialArgs = { inherit inputs; };
+          extraSpecialArgs = { inputs = parentInputs // inputs; };
           users.${builtins.head splitUser} = import configPath;
         };
       });
