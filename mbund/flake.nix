@@ -7,7 +7,8 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-21.11";
+    nixpkgs-stable.url = "github:NixOS/nixpkgs/nixos-21.11";
+    nixpkgs.url = "github:NixOS/nixpkgs/0b5085cdb7fc51eb3f27b9c48e0ad8212734c397";
     nixpkgs-master.url = "github:NixOS/nixpkgs/master";
   };
 

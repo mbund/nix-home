@@ -54,7 +54,7 @@
         };
       };
 
-      systemd.user.startServices = "sd-switch";
+      systemd.user.startServices = "suggest";
 
       programs.home-manager.enable = true;
     };
