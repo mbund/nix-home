@@ -97,14 +97,16 @@
 
         extraPackages = with pkgs; [
           neovim-remote
-          gcc # a c compiler is required for nvim-treesitter
-          tree-sitter
+          (tree-sitter.withPlugins (p: builtins.attrValues p)) # activiate all tree-sitter languages
           xclip
+          ripgrep # required for telelscope's live grep
 
           rnix-lsp
           haskell-language-server
           nodePackages.bash-language-server
+          nodePackages.typescript-language-server
           nodePackages.vim-language-server
+          nodePackages.pyright
         ];
 
         plugins = with pkgs.vimPlugins; with masterpkgs.vimPlugins; let

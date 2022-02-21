@@ -16,11 +16,45 @@
       };
 
       home.packages = with pkgs; [
-        nix-index
         nix-tree
+        nix-index
         nix-prefetch-scripts
         nixops
       ];
+
+      programs.zsh.initExtra = ''
+        command_not_found_handle () {
+          # taken from http://www.linuxjournal.com/content/bash-command-not-found
+          # - do not run when inside Midnight Commander or within a Pipe
+          if [ -n "''${MC_SID-}" ] || ! [ -t 1 ]; then
+              >&2 echo "$1: command not found"
+              return 127
+          fi
+
+          cmd=$1
+          attrs=$(${pkgs.nix-index}/bin/nix-locate --minimal --no-group --type x --type s --top-level --whole-name --at-root "/bin/$cmd")
+          len=$(echo -n "$attrs" | grep -c "^")
+
+          case $len in
+            0)
+              >&2 echo "$cmd: command not found in nixpkgs (run nix-index to update the index)"
+              ;;
+            *)
+              >&2 echo "$cmd was found in the following derivations:\n"
+              while read attr; do
+                >&2 echo "nixpkgs#$attr"
+              done <<< "$attrs"
+              ;;
+          esac
+
+          return 127 # command not found should always exit with 127
+        }
+
+        command_not_found_handler () {
+          command_not_found_handle $@
+          return $?
+        }
+      '';
 
       systemd.user.services.home-manager-setup-home = {
         Unit = {
@@ -30,7 +64,7 @@
         Install = {
           WantedBy = [ "default.target" ];
         };
-        
+
         Service = {
           Type = "oneshot";
           RemainAfterExit = true;

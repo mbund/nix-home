@@ -31,6 +31,9 @@ in {
   home.packages = with pkgs; [
     (lutris.overrideAttrs (_: { buildInputs = [ xdelta ]; }))
 
+    qjackctl
+    helvum
+    easyeffects
     mpv
     vlc
     chromium
@@ -38,7 +41,6 @@ in {
     godot
     gparted
     masterpkgs.discord
-    spotify-tui
     spotify-unwrapped
     krita
     inkscape
