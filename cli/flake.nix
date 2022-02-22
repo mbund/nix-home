@@ -103,10 +103,18 @@
 
           rnix-lsp
           haskell-language-server
+          rust-analyzer
           nodePackages.bash-language-server
           nodePackages.typescript-language-server
           nodePackages.vim-language-server
           nodePackages.pyright
+
+          vale
+          uncrustify
+          nodePackages.js-beautify
+          nodePackages.eslint
+          python39Packages.flake8
+          python39Packages.autopep8
         ];
 
         plugins = with pkgs.vimPlugins; with masterpkgs.vimPlugins; let
@@ -169,6 +177,8 @@
             # lsp
             nvim-lspconfig
             nvim-lsputils
+            neoformat
+            nvim-lint
             trouble-nvim
             lspkind-nvim
             nvim-cmp

@@ -31,9 +31,13 @@ in {
   home.packages = with pkgs; [
     (lutris.overrideAttrs (_: { buildInputs = [ xdelta ]; }))
 
-    qjackctl
+    carla
+    calf
+    ardour
     helvum
-    easyeffects
+    qjackctl
+    qpwgraph
+    playerctl
     mpv
     vlc
     chromium

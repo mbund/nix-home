@@ -209,33 +209,21 @@ nnoremap <leader>fg <cmd>lua require('telescope.builtin').live_grep( { file_igno
 " luasnip, cmp_luasnip -> 'luasnip': snippets as provided by luasnip
 " trouble -> 
 
+" Trigger linter on buffer write
+autocmd TextChanged * lua require('lint').try_lint()
+
 lua << EOF
 require('lspkind').init({})
 
--- Add additional capabilities supported by nvim-cmp
-local capabilities = vim.lsp.protocol.make_client_capabilities()
-capabilities = require('cmp_nvim_lsp').update_capabilities(capabilities)
-
-local lspconfig = require('lspconfig')
-
--- Enable some language servers with the additional completion capabilities offered by nvim-cmp
-local servers = { 'clangd', 'rust_analyzer', 'pyright', 'tsserver' }
-for _, lsp in ipairs(servers) do
-  lspconfig[lsp].setup {
-    -- on_attach = my_custom_on_attach,
-    capabilities = capabilities,
-  }
-end
-
 -- luasnip setup
-local luasnip = require 'luasnip'
+local luasnip = require('luasnip')
 
 -- nvim-cmp setup
-local cmp = require 'cmp'
+local cmp = require('cmp')
 cmp.setup {
   snippet = {
     expand = function(args)
-      require('luasnip').lsp_expand(args.body)
+      luasnip.lsp_expand(args.body)
     end,
   },
   mapping = {
@@ -274,24 +262,50 @@ cmp.setup {
   },
 }
 
-require('lspconfig').hls.setup({
+-- Add additional capabilities supported by nvim-cmp
+local capabilities = vim.lsp.protocol.make_client_capabilities()
+capabilities = require('cmp_nvim_lsp').update_capabilities(capabilities)
+
+local lspconfig = require('lspconfig')
+local lspconfig_util = require('lspconfig/util')
+
+local servers = { 'clangd', 'rust_analyzer', 'pyright' }
+for _, lsp in ipairs(servers) do
+  lspconfig[lsp].setup {
+    capabilities = capabilities,
+  }
+end
+
+lspconfig.hls.setup({
+  capabilities = capabilities,
   settings = {
     haskell = {
       hlintOn = true,
-      formattingProvider = "fourmolu",
+      formattingProvider = 'fourmolu',
     }
   }
 })
-require('lspconfig').pyright.setup({})
 
-local util = require('lspconfig/util')
-require('lspconfig').tsserver.setup {
+lspconfig.tsserver.setup({
+  capabilities = capabilities,
   on_attach = function(client)
     client.resolved_capabilities.document_formatting = false
   end,
-  root_dir = util.root_pattern(".git", "tsconfig.json", "jsconfig.json"),
-}
+  root_dir = lspconfig_util.root_pattern('.git', 'tsconfig.json', 'jsconfig.json'),
+})
+
+require('lint').linters_by_ft = {
+  markdown = { 'vale' },
+  python = { 'flake8' },
+};
 EOF
+
+" Autoformmating
+augroup fmt
+  autocmd!
+  " autocmd BufWritePre * undojoin | Neoformat
+  autocmd BufWritePre * Neoformat
+augroup END
 
 nnoremap <silent> gd    <cmd>lua vim.lsp.buf.definition()<CR>
 nnoremap <silent> gh    <cmd>lua vim.lsp.buf.hover()<CR>

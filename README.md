@@ -1,6 +1,8 @@
 # nix-home
 My dotfiles and home conguration, using [home-manager](https://github.com/nix-community/home-manager). This *should* work on macOS as well with minimal changes, but it is only tested with [NixOS 21.11](https://nixos.org). Check out [my NixOS config](https://github.com/mbund/nixos-config) to see how I set it up in conjunction with this home configuration.
 
+We like to eat pie; do you!? asjfaf gsfhjagsf asgfhj agshfjgahfgfewyuq dasf hega fhjsdajfb asdkjfbh aksdgyfe hjasdgf ja.
+
 ## Structure: taking flakes to the max
 Flake inputs can be simplified by splitting up the root flake into multiple subflakes. This makes it much more readable and puts the inputs to flakes where they are actually used instead of polluting the root flake. Take a look at my home-manager configuration:
 ```nix
