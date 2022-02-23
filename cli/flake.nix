@@ -107,14 +107,21 @@
           nodePackages.bash-language-server
           nodePackages.typescript-language-server
           nodePackages.vim-language-server
-          nodePackages.pyright
 
-          vale
-          uncrustify
-          nodePackages.js-beautify
-          nodePackages.eslint
-          python39Packages.flake8
           python39Packages.autopep8
+          python39Packages.flake8
+          nodePackages.pyright
+          rustfmt
+          nodePackages.eslint_d
+          stylua
+          clang
+          clang-tools
+          cppcheck
+          lua53Packages.luacheck
+          # nodePackages.markdownlint-cli
+          # proselint
+          # codespell
+          haskellPackages.fourmolu
         ];
 
         plugins = with pkgs.vimPlugins; with masterpkgs.vimPlugins; let
@@ -177,8 +184,9 @@
             # lsp
             nvim-lspconfig
             nvim-lsputils
-            neoformat
-            nvim-lint
+            # neoformat
+            # nvim-lint
+            null-ls-nvim
             trouble-nvim
             lspkind-nvim
             nvim-cmp

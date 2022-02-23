@@ -210,7 +210,7 @@ nnoremap <leader>fg <cmd>lua require('telescope.builtin').live_grep( { file_igno
 " trouble -> 
 
 " Trigger linter on buffer write
-autocmd TextChanged * lua require('lint').try_lint()
+" autocmd TextChanged * lua require('lint').try_lint()
 
 lua << EOF
 require('lspkind').init({})
@@ -271,9 +271,9 @@ local lspconfig_util = require('lspconfig/util')
 
 local servers = { 'clangd', 'rust_analyzer', 'pyright' }
 for _, lsp in ipairs(servers) do
-  lspconfig[lsp].setup {
+  lspconfig[lsp].setup ({
     capabilities = capabilities,
-  }
+  })
 end
 
 lspconfig.hls.setup({
@@ -293,19 +293,62 @@ lspconfig.tsserver.setup({
   end,
   root_dir = lspconfig_util.root_pattern('.git', 'tsconfig.json', 'jsconfig.json'),
 })
-
-require('lint').linters_by_ft = {
-  markdown = { 'vale' },
-  python = { 'flake8' },
-};
 EOF
 
-" Autoformmating
-augroup fmt
-  autocmd!
-  " autocmd BufWritePre * undojoin | Neoformat
-  autocmd BufWritePre * Neoformat
-augroup END
+lua << EOF
+
+local null_ls = require("null-ls")
+
+null_ls.setup({
+  debug = true,
+  sources = {
+    -- python
+    null_ls.builtins.formatting.autopep8,
+    null_ls.builtins.diagnostics.flake8,
+
+    -- rust
+    null_ls.builtins.formatting.rustfmt,
+
+    -- javascript typescript
+    null_ls.builtins.formatting.eslint_d,
+    null_ls.builtins.diagnostics.eslint_d,
+    null_ls.builtins.code_actions.eslint_d,
+
+    -- lua
+    null_ls.builtins.formatting.stylua,
+    null_ls.builtins.diagnostics.luacheck,
+
+    -- C/C++
+    null_ls.builtins.formatting.clang_format,
+    null_ls.builtins.diagnostics.cppcheck,
+
+    -- writing
+    -- null_ls.builtins.diagnostics.markdownlint,
+    -- null_ls.builtins.diagnostics.proselint,
+    -- null_ls.builtins.code_actions.proselint,
+    -- null_ls.builtins.formatting.codespell,
+    -- null_ls.builtins.diagnostics.misspell,
+    -- null_ls.builtins.hover.dictionary,
+    -- null_ls.builtins.completion.spell,
+
+    -- misc
+    null_ls.builtins.code_actions.gitsigns,
+  },
+
+  -- you can reuse a shared lspconfig on_attach callback here
+  on_attach = function(client)
+      if client.resolved_capabilities.document_formatting then
+          vim.cmd([[
+          augroup LspFormatting
+              autocmd! * <buffer>
+              autocmd BufWritePre <buffer> lua vim.lsp.buf.formatting_sync()
+          augroup END
+          ]])
+      end
+  end,
+})
+
+EOF
 
 nnoremap <silent> gd    <cmd>lua vim.lsp.buf.definition()<CR>
 nnoremap <silent> gh    <cmd>lua vim.lsp.buf.hover()<CR>
@@ -315,6 +358,7 @@ nnoremap <silent> <c-k> <cmd>lua vim.lsp.buf.signature_help()<CR>
 nnoremap <silent> gr    <cmd>lua vim.lsp.buf.references()<CR>
 nnoremap <silent> gR    <cmd>lua vim.lsp.buf.rename()<CR>
 nnoremap <silent><leader>fo <cmd>lua vim.lsp.buf.formatting()<CR>
+nnoremap <silent><leader>fr <cmd>lua vim.lsp.buf.range_formatting()<CR>
 
 " trouble
 lua << EOF
