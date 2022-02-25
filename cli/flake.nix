@@ -5,8 +5,7 @@
     zsh-syntax-highlighting = { url = "github:zsh-users/zsh-syntax-highlighting"; flake = false; };
 
     nvim = {
-      /* url = "github:mbund/nvim"; */
-      url = "/home/mbund/nvim";
+      url = "github:mbund/nvim";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
@@ -157,6 +156,8 @@
   };
 
 }
+
+
 
 
 
