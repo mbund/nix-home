@@ -1,6 +1,6 @@
 {
   description = "mbund's home-manager configuration for all systems";
-  
+
   inputs = {
     home-manager = {
       url = "github:nix-community/home-manager";
@@ -19,19 +19,23 @@
         { system = "x86_64-linux"; user = "mbund@marshmellow-roaster"; }
       ];
 
-      builder = f: builtins.listToAttrs (builtins.map (home: {
-        name = home.user;
+      builder = f: builtins.listToAttrs (builtins.map
+        (home: {
+          name = home.user;
 
-        value = let
-          splitUser = nixpkgs.lib.splitString "@" home.user;
-          configPath = ./. + "/${builtins.elemAt splitUser 1}.nix";
-        in
-          assert nixpkgs.lib.assertMsg (builtins.length splitUser == 2) "invalid name: ${home.user}";
-          assert nixpkgs.lib.assertMsg (builtins.pathExists configPath) "path does not exist: ${builtins.toString configPath}";
+          value =
+            let
+              splitUser = nixpkgs.lib.splitString "@" home.user;
+              configPath = ./. + "/${builtins.elemAt splitUser 1}.nix";
+            in
+            assert nixpkgs.lib.assertMsg (builtins.length splitUser == 2) "invalid name: ${home.user}";
+            assert nixpkgs.lib.assertMsg (builtins.pathExists configPath) "path does not exist: ${builtins.toString configPath}";
 
-          f { inherit home splitUser configPath; };
-      }) homes);
-    in {
+            f { inherit home splitUser configPath; };
+        })
+        homes);
+    in
+    {
 
       homeConfigurations = parentInputs: builder ({ home, splitUser, configPath }:
         home-manager.lib.homeManagerConfiguration {
@@ -53,5 +57,14 @@
         };
       });
 
-  };
+    };
 }
+
+
+
+
+
+
+
+
+

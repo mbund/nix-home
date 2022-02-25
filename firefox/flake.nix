@@ -62,18 +62,22 @@
           };
         };
 
-        extensions = let
-         nurpkgs = import nixpkgs { system = pkgs.system; overlays = [ nur.overlay ]; };
-         in with nurpkgs.nur.repos.rycee.firefox-addons; [
-           ublock-origin
-           return-youtube-dislikes
-           sponsorblock
-           plasma-integration
-           greasemonkey
-           no-pdf-download
-         ];
+        extensions =
+          let
+            nurpkgs = import nixpkgs { system = pkgs.system; overlays = [ nur.overlay ]; };
+          in
+          with nurpkgs.nur.repos.rycee.firefox-addons; [
+            ublock-origin
+            return-youtube-dislikes
+            sponsorblock
+            plasma-integration
+            greasemonkey
+            no-pdf-download
+          ];
       };
 
     };
   };
 }
+
+

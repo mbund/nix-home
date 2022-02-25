@@ -1,6 +1,6 @@
 {
   description = "Conglomeration of home-manager configurations";
-  
+
   inputs = {
     # users
     mbund.url = "./mbund";
@@ -21,3 +21,4 @@
 
   };
 }
+
