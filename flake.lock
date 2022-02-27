@@ -8,23 +8,23 @@
         "zsh-syntax-highlighting": "zsh-syntax-highlighting"
       },
       "locked": {
-        "narHash": "sha256-Beggn7/+ZpMR456NbGgzVueI/rTPtLnxXAvyYxCwp4o=",
-        "path": "/nix/store/cpambxv7xyjbbxsq8ihcgkvs0a5dkrg3-source/cli",
+        "narHash": "sha256-iriktSQ2AP7bAaFwLlUWyM3CfkdWQEr7iHpjdOJCPpU=",
+        "path": "/nix/store/b0g5jal3pq84ikp0v9xaq80hfkamr0rw-source/cli",
         "type": "path"
       },
       "original": {
-        "path": "/nix/store/cpambxv7xyjbbxsq8ihcgkvs0a5dkrg3-source/cli",
+        "path": "/nix/store/b0g5jal3pq84ikp0v9xaq80hfkamr0rw-source/cli",
         "type": "path"
       }
     },
     "common": {
       "locked": {
         "narHash": "sha256-JGbFMh0F10wS7JG0tXCj84L+wwuoaTVR3GEpuBiGneI=",
-        "path": "/nix/store/cpambxv7xyjbbxsq8ihcgkvs0a5dkrg3-source/common",
+        "path": "/nix/store/b0g5jal3pq84ikp0v9xaq80hfkamr0rw-source/common",
         "type": "path"
       },
       "original": {
-        "path": "/nix/store/cpambxv7xyjbbxsq8ihcgkvs0a5dkrg3-source/common",
+        "path": "/nix/store/b0g5jal3pq84ikp0v9xaq80hfkamr0rw-source/common",
         "type": "path"
       }
     },
@@ -35,11 +35,11 @@
       },
       "locked": {
         "narHash": "sha256-2TGZtWwu4DVm/q4LGwu2c2bGyuIk/5+p+O2Hjy/vhJs=",
-        "path": "/nix/store/cpambxv7xyjbbxsq8ihcgkvs0a5dkrg3-source/firefox",
+        "path": "/nix/store/b0g5jal3pq84ikp0v9xaq80hfkamr0rw-source/firefox",
         "type": "path"
       },
       "original": {
-        "path": "/nix/store/cpambxv7xyjbbxsq8ihcgkvs0a5dkrg3-source/firefox",
+        "path": "/nix/store/b0g5jal3pq84ikp0v9xaq80hfkamr0rw-source/firefox",
         "type": "path"
       }
     },
@@ -135,11 +135,11 @@
       },
       "locked": {
         "narHash": "sha256-jD+5Wnl0V9lVo+IebTOejPxXi3/ZMLfiFPOrA5Swysk=",
-        "path": "/nix/store/cpambxv7xyjbbxsq8ihcgkvs0a5dkrg3-source/mbund",
+        "path": "/nix/store/b0g5jal3pq84ikp0v9xaq80hfkamr0rw-source/mbund",
         "type": "path"
       },
       "original": {
-        "path": "/nix/store/cpambxv7xyjbbxsq8ihcgkvs0a5dkrg3-source/mbund",
+        "path": "/nix/store/b0g5jal3pq84ikp0v9xaq80hfkamr0rw-source/mbund",
         "type": "path"
       }
     },
@@ -313,14 +313,15 @@
           "nixpkgs"
         ],
         "nvim-code-action-menu": "nvim-code-action-menu",
-        "nvim-lightbulb": "nvim-lightbulb"
+        "nvim-lightbulb": "nvim-lightbulb",
+        "startup-nvim": "startup-nvim"
       },
       "locked": {
-        "lastModified": 1645755925,
-        "narHash": "sha256-ZtHPeC4G3ETcN50sN5b3ESjLRKc+ceMxL3I4+N7Ezi8=",
+        "lastModified": 1646002657,
+        "narHash": "sha256-W8ITo3Ss0O7E3ei7miG7wfGCQetCZOSucFwFkJpF3a0=",
         "owner": "mbund",
         "repo": "nvim",
-        "rev": "79176519f68c98ec22f594e747e533032e2b11ca",
+        "rev": "d5125914118fdf9b1e7187fa2e32a78a58ee8173",
         "type": "github"
       },
       "original": {
@@ -384,11 +385,11 @@
       },
       "locked": {
         "narHash": "sha256-bqYlZWuR5cObSmd4o/mqVvsn2iPVGbPS8CenVLv0tQk=",
-        "path": "/nix/store/cpambxv7xyjbbxsq8ihcgkvs0a5dkrg3-source/plasma",
+        "path": "/nix/store/b0g5jal3pq84ikp0v9xaq80hfkamr0rw-source/plasma",
         "type": "path"
       },
       "original": {
-        "path": "/nix/store/cpambxv7xyjbbxsq8ihcgkvs0a5dkrg3-source/plasma",
+        "path": "/nix/store/b0g5jal3pq84ikp0v9xaq80hfkamr0rw-source/plasma",
         "type": "path"
       }
     },
@@ -399,6 +400,22 @@
         "firefox": "firefox",
         "mbund": "mbund",
         "plasma": "plasma"
+      }
+    },
+    "startup-nvim": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1644087093,
+        "narHash": "sha256-TBkTfIcBX8LdnX5Cww/y5i4VBYOwqdIipSWYWY0JLGo=",
+        "owner": "startup-nvim",
+        "repo": "startup.nvim",
+        "rev": "d64c0599aada57f2d992418709dc4490c17641c4",
+        "type": "github"
+      },
+      "original": {
+        "owner": "startup-nvim",
+        "repo": "startup.nvim",
+        "type": "github"
       }
     },
     "zsh-syntax-highlighting": {
