@@ -37,6 +37,13 @@ in
     plugins = with pkgs.obs-studio-plugins; [ obs-nvfbc ];
   };
 
+  programs.chromium = {
+    enable = true;
+    commandLineArgs = [
+      "--password-store=kwallet5"
+    ];
+  };
+
   home.packages = with pkgs; [
     (lutris.overrideAttrs (_: { buildInputs = [ xdelta ]; }))
 
@@ -46,7 +53,6 @@ in
     playerctl
     mpv
     vlc
-    chromium
     virt-manager
     godot
     gparted
@@ -91,4 +97,7 @@ in
   home.stateVersion = "21.11";
 
 }
+
+
+
 
