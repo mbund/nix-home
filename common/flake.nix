@@ -20,6 +20,7 @@
         nix-index
         nix-prefetch-scripts
         nixops
+        comma
       ];
 
       programs.zsh.initExtra = ''
@@ -97,4 +98,6 @@
     };
   };
 }
+
+
 
