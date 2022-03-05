@@ -1,7 +1,11 @@
 {
   description = "Common";
 
-  outputs = { self, ... }: {
+  inputs = {
+    nix-autobahn.url = "github:wucke13/nix-autobahn/62317ebfc7737315ce8a8e06933bdcc1983419b4";
+  };
+
+  outputs = { self, ... }@inputs: {
     home = { config, lib, pkgs, ... }: {
       xdg.userDirs = {
         enable = true;
@@ -21,6 +25,7 @@
         nix-prefetch-scripts
         nixops
         comma
+        inputs.nix-autobahn.defaultPackage.${pkgs.system}
       ];
 
       programs.zsh.initExtra = ''
@@ -98,6 +103,4 @@
     };
   };
 }
-
-
 
