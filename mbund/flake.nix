@@ -57,6 +57,8 @@
               stable-pkgs = genStablePkgs system;
               pinned-pkgs = genPinnedPkgs system;
               master-pkgs = genMasterPkgs system;
+
+              oneshotPkg = input: import input { inherit system; config = { allowUnfree = true; allowBroken = true; }; };
             in
             { config, ... }: ({
               imports = with inputs; [
@@ -79,26 +81,48 @@
               };
 
               home.packages = with pinned-pkgs; [
-                (lutris.overrideAttrs (_: { buildInputs = [ xdelta ]; }))
+                # audio/video
                 calf
                 ardour
+                lmms
                 qpwgraph
                 playerctl
-                mpv
                 vlc
-                virt-manager
-                godot
-                gparted
+                audacity
+
+                # social/entertainment
                 master-pkgs.discord
                 spotify-unwrapped
+                (lutris.overrideAttrs (_: { buildInputs = [ xdelta ]; }))
+
+                # art
                 krita
                 inkscape
                 gimp
+                blender
+
+                # school/productivity
                 onlyoffice-bin
                 zoom
-                aspell
-                aspellDicts.en
+                gnucash
+                zathura
+                graphviz
+                xdot
+                dot2tex
+
+                # programming
                 vscode-fhs
+                godot
+
+                # system
+                gparted
+                virt-manager
+                htop
+
+                # misc
+                aspell aspellDicts.en
+                ripgrep
+                qbittorrent tor
               ];
 
               home.sessionVariables = {
