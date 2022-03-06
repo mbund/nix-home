@@ -1,1 +1,1 @@
-*.layout.latte linguist-language=ignore
+*.layout.latte linguist-vendored=false
