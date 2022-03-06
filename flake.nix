@@ -11,16 +11,13 @@
     plasma.url = "./plasma";
     firefox.url = "./firefox";
 
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-21.11";
     flake-utils = { url = "github:numtide/flake-utils"; inputs.nixpkgs.follows = "nixpkgs"; };
   };
 
   outputs = { self, nixpkgs, flake-utils, ... }@inputs: with inputs; {
     homeConfigurations =
-      mbund.homeConfigurations inputs;
-
-    homeNixOSModules =
-      mbund.homeNixOSModules inputs;
+      mbund.genHomeConfigurations inputs;
 
   } // flake-utils.lib.eachDefaultSystem (system:
     let

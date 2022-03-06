@@ -4,59 +4,162 @@
   inputs = {
     home-manager = {
       url = "github:nix-community/home-manager";
-      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.nixpkgs.follows = "nixpkgs-pinned";
     };
 
     nixpkgs-stable.url = "github:NixOS/nixpkgs/nixos-21.11";
-    nixpkgs.url = "github:NixOS/nixpkgs/0b5085cdb7fc51eb3f27b9c48e0ad8212734c397";
+    nixpkgs-pinned.url = "github:NixOS/nixpkgs/0b5085cdb7fc51eb3f27b9c48e0ad8212734c397";
     nixpkgs-master.url = "github:NixOS/nixpkgs/master";
   };
 
-  outputs = { self, nixpkgs, home-manager, ... }@inputs:
+  outputs = { self, home-manager, ... }@mbund-inputs:
     let
-      homes = [
-        { system = "x86_64-linux"; user = "mbund@mbund-desktop"; }
-        { system = "x86_64-linux"; user = "mbund@marshmellow-roaster"; }
-      ];
+      lib = mbund-inputs.nixpkgs-stable.lib;
 
-      builder = f: builtins.listToAttrs (builtins.map
-        (home: {
-          name = home.user;
+      genStablePkgs = system: import mbund-inputs.nixpkgs-stable { inherit system; };
 
-          value =
-            let
-              splitUser = nixpkgs.lib.splitString "@" home.user;
-              configPath = ./. + "/${builtins.elemAt splitUser 1}.nix";
-            in
-            assert nixpkgs.lib.assertMsg (builtins.length splitUser == 2) "invalid name: ${home.user}";
-            assert nixpkgs.lib.assertMsg (builtins.pathExists configPath) "path does not exist: ${builtins.toString configPath}";
+      genPinnedPkgs = system: import mbund-inputs.nixpkgs-pinned {
+        inherit system;
+        config.allowUnfreePredicate = pkg: builtins.elem (lib.getName pkg) [
+          # steam is required for lutris
+          "steam"
+          "steam-original"
+          "steam-runtime"
 
-            f { inherit home splitUser configPath; };
-        })
-        homes);
+          "code"
+          "vscode"
+
+          "zoom"
+
+          "spotify-unwrapped"
+        ];
+      };
+
+      genMasterPkgs = system: import mbund-inputs.nixpkgs-master {
+        inherit system;
+        config.allowUnfreePredicate = pkg: builtins.elem (lib.getName pkg) [
+          "discord"
+        ];
+      };
+
     in
     {
 
-      homeConfigurations = parentInputs: builder ({ home, splitUser, configPath }:
-        home-manager.lib.homeManagerConfiguration {
-          system = home.system;
+      genHomeConfigurations = parentInputs: {
+        "mbund@mbund-desktop" = home-manager.lib.homeManagerConfiguration rec {
+          system = "x86_64-linux";
           stateVersion = "21.11";
-          homeDirectory = "/home/${builtins.head splitUser}";
-          username = builtins.head splitUser;
-          configuration = import configPath;
-          extraSpecialArgs = { inputs = parentInputs // inputs; };
-        }
-      );
+          homeDirectory = "/home/mbund";
+          username = "mbund";
+          configuration =
+            let
+              inputs = parentInputs // mbund-inputs;
+              stable-pkgs = genStablePkgs system;
+              pinned-pkgs = genPinnedPkgs system;
+              master-pkgs = genMasterPkgs system;
+            in
+            { config, ... }: ({
+              imports = with inputs; [
+                common.home
+                cli.home
+                plasma.home
+                firefox.home
+              ];
 
-      homeNixOSModules = parentInputs: builder ({ home, splitUser, configPath }: {
-        home-manager = {
-          useGlobalPkgs = true;
-          useUserPackages = true;
-          extraSpecialArgs = { inputs = parentInputs // inputs; };
-          users.${builtins.head splitUser} = import configPath;
+              programs.obs-studio = {
+                enable = true;
+                plugins = with pinned-pkgs.obs-studio-plugins; [ obs-nvfbc ];
+              };
+
+              programs.chromium = {
+                enable = true;
+                commandLineArgs = [
+                  "--password-store=kwallet5"
+                ];
+              };
+
+              home.packages = with pinned-pkgs; [
+                (lutris.overrideAttrs (_: { buildInputs = [ xdelta ]; }))
+                calf
+                ardour
+                qpwgraph
+                playerctl
+                mpv
+                vlc
+                virt-manager
+                godot
+                gparted
+                master-pkgs.discord
+                spotify-unwrapped
+                krita
+                inkscape
+                gimp
+                onlyoffice-bin
+                zoom
+                aspell
+                aspellDicts.en
+                vscode-fhs
+              ];
+
+              home.sessionVariables = {
+                "EDITOR" = "nvim";
+                "VISUAL" = "nvim";
+              };
+
+              systemd.user.services.home-manager-latte-dock = {
+                Unit = {
+                  Description = "Home-manager Latte Dock host";
+                };
+
+                Install = {
+                  WantedBy = [ "graphical-session.target" ];
+                };
+
+                Service = {
+                  ExecStart =
+                    let
+                      script = stable-pkgs.writeShellScript "latte-start.sh" ''
+                        ${stable-pkgs.coreutils}/bin/cp -f ${./HomeManagerDock.layout.latte} ${config.home.homeDirectory}/.config/latte/HomeManagerDock.layout.latte
+                        ${master-pkgs.latte-dock}/bin/latte-dock --layout HomeManagerDock --replace
+                      '';
+                    in
+                    "${script}";
+                };
+              };
+            });
         };
-      });
 
+        "mbund@marshmellow-roaster" = home-manager.lib.homeManagerConfiguration rec {
+          system = "x86_64-linux";
+          stateVersion = "21.11";
+          homeDirectory = "/home/mbund";
+          username = "mbund";
+          configuration =
+            let
+              inputs = parentInputs // mbund-inputs;
+              stable-pkgs = genStablePkgs system;
+              pinned-pkgs = genPinnedPkgs system;
+              master-pkgs = genMasterPkgs system;
+            in
+            { config, ... }: ({
+              imports = with inputs; [
+                common.home
+                cli.home
+                plasma.home
+                firefox.home
+              ];
+
+              home.packages = with pinned-pkgs; [
+                vscodium
+                virt-manager
+                godot
+                gparted
+              ];
+
+            });
+        };
+
+      };
     };
 }
 
