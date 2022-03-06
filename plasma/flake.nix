@@ -25,10 +25,7 @@
       home.file.".local/share/color-schemes/One-Dark-Red.colors".source = inputs.one-dark-kde-theme + "/color-schemes/One-Dark/One-Dark-Red.colors";
       home.file.".local/share/color-schemes/One-Dark-Yellow.colors".source = inputs.one-dark-kde-theme + "/color-schemes/One-Dark/One-Dark-Yellow.colors";
 
-      services.kdeconnect = {
-        enable = true;
-        indicator = true;
-      };
+      services.kdeconnect.enable = true;
 
       home.packages = with pkgs; [
         krfb
