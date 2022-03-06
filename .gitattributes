@@ -1,1 +1,1 @@
-*.layout.latte linguist-vendored=false
+**.layout.latte -linguist-detectable
