@@ -3,7 +3,6 @@
 
   inputs = {
     one-dark-kde-theme = { url = "github:Prayag2/kde_onedark"; flake = false; };
-    # kde-rounded-corners = { url = "github:matinlotfali/KDE-Rounded-Corners"; flake = false; }; # 8ad8f5f5eff9d1625abc57cb24dc484d51f0e1bd
   };
 
   outputs = { self, ... }@inputs: {
@@ -44,33 +43,6 @@
           runtimeInputs = with pkgs; [ libsForQt5.qt5.qttools dbus pywal jq ];
           text = builtins.readFile ./kde-chameleon.sh;
         })
-
-        # (pkgs.libsForQt5.callPackage ({ mkDerivation }: mkDerivation) { } rec {
-        #   name = "kde-rounded-corners";
-        #   version = "0.0.1";
-        #   src = inputs.kde-rounded-corners;
-
-        #   nativeBuildInputs = with pkgs; [
-        #     cmake
-        #   ];
-        #   buildInputs = with pkgs; [
-        #     extra-cmake-modules
-        #     libepoxy
-        #     libsForQt5.kwin
-        #     libsForQt5.qt5.qttools
-        #     libsForQt5.qt5.qtx11extras
-        #     libsForQt5.kdelibs4support
-        #   ];
-
-        #   preConfigure = ''
-        #     local modulepath=$(kf5-config --install module)
-        #     local datapath=$(kf5-config --install data)
-        #     substituteInPlace CMakeLists.txt \
-        #       --replace "\''${MODULEPATH}" "$out/''${modulepath#/nix/store/*/}" \
-        #       --replace "\''${DATAPATH}"   "$out/''${datapath#/nix/store/*/}"
-        #   '';
-        # })
-
       ];
 
       systemd.user.services.home-manager-kde-config = {
@@ -156,11 +128,6 @@
                     RollOverDesktops = false;
                     BorderlessMaximizedWindows = false;
                   };
-                };
-
-                "shapecorners.conf".General = {
-                  dsp = true;
-                  roundness = 3;
                 };
 
                 kdeglobals.KDE.SingleClick = false;
