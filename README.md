@@ -1,34 +1,81 @@
-# nix-home
+![License](https://img.shields.io/github/license/mbund/nix-home?color=dgreen&style=flat-square) ![Size](https://img.shields.io/github/repo-size/mbund/nix-home?color=red&label=size&style=flat-square) [![NixOS](https://img.shields.io/badge/nixpkgs-unstable-9cf.svg?style=flat-square&logo=NixOS&logoColor=white)](https://nixos.org)  
+
+## About
 My dotfiles and home conguration, using [home-manager](https://github.com/nix-community/home-manager). This *should* work on macOS as well with minimal changes, but it is only tested with [NixOS 21.11](https://nixos.org). Check out [my NixOS config](https://github.com/mbund/nixos-config) to see how I set it up in conjunction with this home configuration.
 
 ## Structure: taking flakes to the max
-Flake inputs can be simplified by splitting up the root flake into multiple subflakes. This makes it much more readable and puts the inputs to flakes where they are actually used instead of polluting the root flake. Take a look at my home-manager configuration:
+Flake inputs can be simplified by splitting up the root flake into multiple subflakes. This makes it much more readable and puts the external inputs to flakes where they are actually used instead of polluting the root flake. In my root flake I define all my subflakes, one for each user, and one for each component. I then pass every input along to the users, who can generate their required `homeConfigurations` which `home-manager` expects.
+
+To explain it with code:
 ```nix
-# flake.nix
-inputs = {
-  nixpkgs.url = "nixpkgs/nixpkgs-unstable";
+# root flake.nix
+{
+  inputs = {
+    # users
+    mbund.url = "./mbund";
 
-  home-manager = {
-    url = "github:nix-community/home-manager";
-    inputs.nixpkgs.follows = "nixpkgs";
+    # components
+    common.url = "./common";
+    cli.url = "./cli";
+    firefox.url = "./firefox";
   };
-
-  cli.url = "./cli";
-};
+  
+  outputs = { self, mbund, ... }@inputs: {
+    homeConfigurations = mbund.genHomeConfigurations inputs;
+  };
+}
 ```
-`cli` is a subflake where I configure my shell, with its inputs looking something like this:
 ```nix
-# cli/flake.nix
-inputs = {
-  nixpkgs.url = "nixpkgs/nixpkgs-unstable";
+# mbund/flake.nix
+{
+  description = "mbund's home-manager configuration for all systems";
 
-  zsh-syntax-highlighting = {
-    url = "github:zsh-users/zsh-syntax-highlighting";
-    flake = false;
+  inputs = {
+    home-manager = {
+      url = "github:nix-community/home-manager";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    
+    nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
   };
-};
+  
+  outputs = { self, nixpkgs, home-manager, ... }@mbund-inputs:
+    let
+      pkgs = import nixpkgs { system = "x86_64-linux"; };
+    in {
+      
+      genHomeConfigurations = parentInputs: {
+      
+        "mbund@mbund-desktop" = home-manager.lib.homeManagerConfiguration {
+          system = "x86_64-linux";
+          stateVersion = "21.11";
+          homeDirectory = "/home/mbund";
+          username = "mbund";
+          configuration = { config, ... }: ({
+          
+            # We can now use the parentInputs to access our neighboring `cli/flake.nix`,
+            # for example and import it here for composability
+            imports = with parentInputs; [
+              common.home
+              cli.home
+              firefox.home
+            ];
+            
+            # otherwise this is a normal home-manager configuration at this point...
+            home.packages = with pkgs; [
+              htop
+            ];
+            
+          });
+        };
+        
+      };
+      
+    };
+}
 ```
-Here, my `zsh` plugin, `zsh-syntax-highlighting`, is a flake input. We can use flake inputs to replace littering the code with `pkgs.fetchFromGithub`, take advantage of flake pinning, and consolidate outside dependencies into where they belong.
+
+Now that we can isolate everything into flakes a subflakes, we can use flake inputs to replace littering the code with `pkgs.fetchFromGithub`, take advantage of flake pinning, and generally just consolidate outside dependencies into where they belong.
 
 ## Before you install
 To run the installation, `git` must be installed and the **experimental nix commands must be enabled**. On NixOS you would set something like this in your configuration.
