@@ -91,6 +91,7 @@
                 audacity
 
                 # social/entertainment
+                ferdi
                 master-pkgs.discord
                 spotify-unwrapped
                 (lutris.overrideAttrs (_: { buildInputs = [ xdelta ]; }))
@@ -113,6 +114,7 @@
                 # programming
                 vscode-fhs
                 godot
+                ghidra
 
                 # system
                 gparted
@@ -120,9 +122,11 @@
                 htop
 
                 # misc
-                aspell aspellDicts.en
+                aspell
+                aspellDicts.en
                 ripgrep
-                qbittorrent tor
+                qbittorrent
+                tor
               ];
 
               home.sessionVariables = {
