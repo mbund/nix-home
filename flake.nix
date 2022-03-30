@@ -17,7 +17,8 @@
 
   outputs = { self, nixpkgs, flake-utils, ... }@inputs: with inputs; {
     homeConfigurations =
-      mbund.genHomeConfigurations inputs;
+      mbund.genHomeConfigurations inputs //
+      { };
 
   } // flake-utils.lib.eachDefaultSystem (system:
     let
