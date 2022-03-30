@@ -34,6 +34,8 @@
           zip
           unzip
           xclip
+          htop
+          ripgrep
           inputs.nvim.defaultPackage.${pkgs.system}
 
           (nerdfonts.override {
@@ -43,8 +45,6 @@
             ];
           })
         ];
-
-        fonts.fontconfig.enable = true;
 
         programs.lf = {
           enable = true;

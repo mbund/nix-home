@@ -80,6 +80,8 @@
                 ];
               };
 
+              fonts.fontconfig.enable = true;
+
               home.packages = with pinned-pkgs; [
                 # audio/video
                 calf
@@ -110,6 +112,7 @@
                 graphviz
                 xdot
                 dot2tex
+                liberation_ttf
 
                 # programming
                 vscode-fhs
@@ -119,12 +122,10 @@
                 # system
                 gparted
                 virt-manager
-                htop
 
                 # misc
                 aspell
                 aspellDicts.en
-                ripgrep
                 qbittorrent
                 tor
               ];
