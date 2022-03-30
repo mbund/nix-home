@@ -105,7 +105,7 @@
           shellGlobalAliases = {
             "v" = "nvim";
             "vimdiff" = "nvim -d";
-
+            "lg" = "lazygit";
             "UUID" = "$(uuidgen | tr -d \\n)";
           };
 
@@ -171,10 +171,4 @@
   };
 
 }
-
-
-
-
-
-
 
