@@ -188,6 +188,37 @@
             });
         };
 
+        "mbund@zephyr" = home-manager.lib.homeManagerConfiguration rec {
+          system = "x86_64-linux";
+          stateVersion = "21.11";
+          homeDirectory = "/home/mbund";
+          username = "mbund";
+          configuration =
+            let
+              inputs = parentInputs // mbund-inputs;
+              stable-pkgs = genStablePkgs system;
+              pinned-pkgs = genPinnedPkgs system;
+              master-pkgs = genMasterPkgs system;
+            in
+            { config, ... }: ({
+              imports = with inputs; [
+                common.home
+                cli.home
+              ];
+
+              home.packages = with pinned-pkgs; [
+                vlc
+                tor
+              ];
+
+              home.sessionVariables = {
+                "EDITOR" = "nvim";
+                "VISUAL" = "nvim";
+              };
+
+            });
+        };
+
       };
     };
 }
