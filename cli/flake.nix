@@ -124,8 +124,6 @@
           enable = true;
           settings = {
             format = pkgs.lib.concatStrings [
-              "$username"
-              "$hostname"
               "$directory"
               "$git_branch"
               "$git_state"
