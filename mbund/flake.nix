@@ -204,6 +204,7 @@
               imports = with inputs; [
                 common.home
                 cli.home
+                signing.home
               ];
 
               home.packages = with pinned-pkgs; [
