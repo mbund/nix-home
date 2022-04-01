@@ -66,6 +66,7 @@
                 cli.home
                 plasma.home
                 firefox.home
+                signing.home
               ];
 
               programs.obs-studio = {
