@@ -30,6 +30,17 @@
         userName = "mbund";
       };
 
+      programs.ssh = {
+        enable = true;
+        matchBlocks = {
+          "github.com" = {
+            hostname = "github.com";
+            user = "git";
+            identityFile = "${config.home.homeDirectory}/.ssh/github";
+          };
+        };
+      };
+
       programs.password-store = {
         enable = true;
         package = pkgs.pass.withExtensions (exts: [ exts.pass-otp ]);
