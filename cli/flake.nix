@@ -36,6 +36,7 @@
           xclip
           htop
           ripgrep
+          tmux
           inputs.nvim.defaultPackage.${pkgs.system}
 
           (nerdfonts.override {
@@ -62,27 +63,28 @@
           '';
         };
 
-        programs.tmux = {
-          enable = true;
+        home.file.".tmux.conf".source = ./tmux.conf;
+        home.file.".tmux.conf.local".text = let
+          check = pkgs.lib.types.package.check;
+          pluginName = p: if check p then p.pname else p.plugin.pname;
 
-          plugins = with pkgs.tmuxPlugins; [ resurrect ];
+          plugins = with pkgs.tmuxPlugins; [
+            resurrect
+          ];
+        in ''
+          ${builtins.readFile ./tmux.conf.local}
 
-          extraConfig = ''
-            unbind C-b
-            set -g prefix C-a
-            bind C-a send-prefix
-
-            set -s escape-time 0
-            set -g history-limit 50000
-
-            set -g base-index 1
-            setw -g pane-base-index 1
-
-            set-option -g default-terminal "screen-256color"
-
-            set-option -g default-shell ${pkgs.zsh}/bin/zsh
-          '';
-        };
+          # ============================================= #
+          # Load plugins with Home Manager                #
+          # --------------------------------------------- #
+          ${(pkgs.lib.concatMapStringsSep "\n\n" (p: ''
+            # ${pluginName p}
+            # ---------------------
+            ${p.extraConfig or ""}
+            run-shell ${if check p then p.rtp else p.plugin.rtp}
+          '') plugins)}
+          # ============================================= #
+        '';
 
         programs.zsh = {
           enable = true;
