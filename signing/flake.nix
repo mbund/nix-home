@@ -7,11 +7,6 @@
       programs.git = {
         enable = true;
 
-        signing = {
-          key = "6C8949C0713C5B3C";
-          signByDefault = true;
-        };
-
         extraConfig = {
           init.defaultBranch = "main";
           pull.rebase = false;
@@ -25,9 +20,6 @@
           ".vscode/"
           ".mygitignore"
         ];
-
-        userEmail = "25110595+mbund@users.noreply.github.com";
-        userName = "mbund";
       };
 
       programs.ssh = {
