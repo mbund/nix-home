@@ -8,7 +8,7 @@
     };
 
     nixpkgs-stable.url = "github:NixOS/nixpkgs/nixos-21.11";
-    nixpkgs-pinned.url = "github:NixOS/nixpkgs/0b5085cdb7fc51eb3f27b9c48e0ad8212734c397";
+    nixpkgs-pinned.url = "github:NixOS/nixpkgs/nixos-unstable";
     nixpkgs-master.url = "github:NixOS/nixpkgs/master";
   };
 
@@ -150,8 +150,10 @@
               imports = with inputs; [
                 common.home
                 cli.home
-                plasma.home
+                # plasma.home
                 firefox.home
+                de.home
+                signing.home
               ];
 
               home.packages = with pinned-pkgs; [

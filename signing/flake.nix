@@ -10,7 +10,7 @@
         extraConfig = {
           init.defaultBranch = "main";
           pull.rebase = false;
-          credential.helper = "${pkgs.git.override { withLibsecret = true; }}/bin/git-credential-libsecret";
+          # credential.helper = "${pkgs.git.override { withLibsecret = true; }}/bin/git-credential-libsecret";
         };
 
         ignores = [

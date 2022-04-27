@@ -11,6 +11,7 @@
     plasma.url = "./plasma";
     firefox.url = "./firefox";
     signing.url = "./signing";
+    de.url = "./de";
 
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-21.11";
     flake-utils = { url = "github:numtide/flake-utils"; inputs.nixpkgs.follows = "nixpkgs"; };
