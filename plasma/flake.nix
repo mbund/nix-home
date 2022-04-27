@@ -230,6 +230,27 @@
         };
       };
 
+      systemd.user.services.home-manager-latte-dock = {
+        Unit = {
+          Description = "Home-manager Latte Dock host";
+        };
+
+        Install = {
+          WantedBy = [ "graphical-session.target" ];
+        };
+
+        Service = {
+          ExecStart =
+            let
+              script = stable-pkgs.writeShellScript "latte-start.sh" ''
+                ${stable-pkgs.coreutils}/bin/cp -f ${./HomeManagerDock.layout.latte} ${config.home.homeDirectory}/.config/latte/HomeManagerDock.layout.latte
+                ${master-pkgs.latte-dock}/bin/latte-dock --layout HomeManagerDock --replace
+              '';
+            in
+            "${script}";
+        };
+      };
+
     };
   };
 }

@@ -19,7 +19,7 @@
   outputs = { self, nixpkgs, flake-utils, ... }@inputs: with inputs; {
     homeConfigurations =
       mbund.genHomeConfigurations inputs //
-      { };
+        { };
 
   } // flake-utils.lib.eachDefaultSystem (system:
     let
@@ -29,9 +29,9 @@
       devShell = pkgs.mkShell {
         packages = with pkgs; [
           rnix-lsp
+          nixpkgs-fmt
         ];
       };
     }
   );
 }
-

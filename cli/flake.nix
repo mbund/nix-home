@@ -9,6 +9,14 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    helix = {
+      url = "github:helix-editor/helix";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        nixCargoIntegrations.inputs.nixpkgs.follows = "nixpkgs";
+      };
+    };
+
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
     nixpkgs-master.url = "github:NixOS/nixpkgs/master";
   };
@@ -21,7 +29,7 @@
         };
       in
       {
-        home.packages = with pkgs; [
+        home.packages = with pkgs; with inputs; [
           neofetch
           file
           autojump
@@ -30,6 +38,7 @@
           lynx
           lazygit
           curl
+          jq
           wget
           zip
           unzip
@@ -37,6 +46,9 @@
           htop
           ripgrep
           tmux
+          rnix-lsp
+          nixpkgs-fmt
+          helix.defaultPackage.${system}
           inputs.nvim.defaultPackage.${pkgs.system}
 
           (nerdfonts.override {
@@ -63,28 +75,45 @@
           '';
         };
 
+        # configure tmux
         home.file.".tmux.conf".source = ./tmux.conf;
-        home.file.".tmux.conf.local".text = let
-          check = pkgs.lib.types.package.check;
-          pluginName = p: if check p then p.pname else p.plugin.pname;
+        home.file.".tmux.conf.local".text =
+          let
+            check = pkgs.lib.types.package.check;
+            pluginName = p: if check p then p.pname else p.plugin.pname;
 
-          plugins = with pkgs.tmuxPlugins; [
-            resurrect
-          ];
-        in ''
-          ${builtins.readFile ./tmux.conf.local}
+            plugins = with pkgs.tmuxPlugins; [
+              resurrect
+            ];
+          in
+          ''
+            ${builtins.readFile ./tmux.conf.local}
 
-          # ============================================= #
-          # Load plugins with Home Manager                #
-          # --------------------------------------------- #
-          ${(pkgs.lib.concatMapStringsSep "\n\n" (p: ''
-            # ${pluginName p}
-            # ---------------------
-            ${p.extraConfig or ""}
-            run-shell ${if check p then p.rtp else p.plugin.rtp}
-          '') plugins)}
-          # ============================================= #
+            # ============================================= #
+            # Load plugins with Home Manager                #
+            # --------------------------------------------- #
+            ${(pkgs.lib.concatMapStringsSep "\n\n" (p: ''
+              # ${pluginName p}
+              # ---------------------
+              ${p.extraConfig or ""}
+              run-shell ${if check p then p.rtp else p.plugin.rtp}
+            '') plugins)}
+            # ============================================= #
+          '';
+
+        # configure helix
+        home.file.".config/helix/config.toml".text = ''
+          theme = "onedark"
+
+          [editor]
+          line-number = "relative"
+          mouse = false
         '';
+
+        home.sessionVariables = {
+          "EDITOR" = "hx";
+          "VISUAL" = "hx";
+        };
 
         programs.zsh = {
           enable = true;
@@ -117,7 +146,7 @@
 
           initExtra = ''
             # Enable vi mode
-            bindkey -v
+            # bindkey -v
           '';
         };
 
@@ -175,4 +204,3 @@
   };
 
 }
-
