@@ -90,6 +90,12 @@
           MOZ_ENABLE_WAYLAND = 1;
         };
 
+        programs.zsh.shellGlobalAliases = {
+          # flameshot works on wlroots based compositors but the developers
+          # officially only support sway. So we trick it.
+          "flameshot" = "XDG_CURRENT_DESKTOP=sway flameshot";
+        };
+
         gtk = {
           enable = true;
           theme = {
