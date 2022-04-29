@@ -16,15 +16,16 @@
 
         launch-hikari = pkgs.writeScriptBin "launch-hikari" ''
           #!/usr/bin/env bash
-
+          
           # neofetch needs theses to detect hikari
           export XDG_CURRENT_DESKTOP=hikari
           export XDG_SESSION_DESKTOP=hikari
 
           # enable wob
           export WOBSOCK=$XDG_RUNTIME_DIR/wob.sock
-          rm -f "$WOBSOCK" && mkfifo "$WOBSOCK" && tail -f "$WOBSOCK" | wob &
-          WOB_PROCESS=$!
+          rm -f "$WOBSOCK" && mkfifo "$WOBSOCK"
+          tail -f "$WOBSOCK" | xob &
+          export WOB_PROCESS=$!
 
           dbus-run-session hikari
 
@@ -38,7 +39,7 @@
           launch-hikari
 
           wl-clipboard
-          wob
+          xob # wob
           brightnessctl
           pamixer
 
@@ -48,6 +49,13 @@
 
         # configure hikari window manager
         xdg.configFile."hikari/hikari.conf".source = ./hikari.conf;
+        xdg.configFile."hikari/autostart" = {
+          executable = true;
+          text = ''
+            #!/usr/bin/env bash
+
+          '';
+        };
 
         programs.kitty = {
           enable = true;
