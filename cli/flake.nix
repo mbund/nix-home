@@ -2,8 +2,6 @@
   description = "Command Line Interface";
 
   inputs = {
-    zsh-syntax-highlighting = { url = "github:zsh-users/zsh-syntax-highlighting"; flake = false; };
-
     nvim = {
       url = "github:mbund/nvim";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -124,17 +122,11 @@
 
           enableCompletion = true;
           enableAutosuggestions = true;
+          enableSyntaxHighlighting = true;
           oh-my-zsh = {
             enable = true;
-            plugins = [ "git" "autojump" "vi-mode" ];
+            plugins = [ "git" "autojump" ];
           };
-
-          plugins = [
-            {
-              name = "zsh-syntax-highlighting";
-              src = inputs.zsh-syntax-highlighting;
-            }
-          ];
 
           shellAliases = {
             "v" = "nvim";
