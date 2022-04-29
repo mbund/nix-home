@@ -13,13 +13,34 @@
           system = pkgs.system;
           overlays = [ nur.overlay ];
         };
+
+        launch-hikari = pkgs.writeScriptBin "launch-hikari" ''
+          #!/usr/bin/env bash
+
+          # neofetch needs theses to detect hikari
+          export XDG_CURRENT_DESKTOP=hikari
+          export XDG_SESSION_DESKTOP=hikari
+
+          # enable wob
+          export WOBSOCK=$XDG_RUNTIME_DIR/wob.sock
+          rm -f "$WOBSOCK" && mkfifo "$WOBSOCK" && tail -f "$WOBSOCK" | wob &
+          WOB_PROCESS=$!
+
+          dbus-run-session hikari
+
+          pkill "$WOB_PROCESS"
+        '';
       in
       {
         home.packages = with pkgs; [
           hikari
           xwayland
+          launch-hikari
 
           wl-clipboard
+          wob
+          brightnessctl
+          pamixer
 
           imv
           cinnamon.nemo

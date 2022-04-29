@@ -10,6 +10,7 @@
         extraConfig = {
           init.defaultBranch = "main";
           pull.rebase = false;
+          safe.directory = "/etc/nixos";
           # credential.helper = "${pkgs.git.override { withLibsecret = true; }}/bin/git-credential-libsecret";
         };
 
