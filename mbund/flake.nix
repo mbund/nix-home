@@ -64,20 +64,25 @@
               imports = with inputs; [
                 common.home
                 cli.home
-                plasma.home
+                # plasma.home
+                de.home
                 firefox.home
                 signing.home
               ];
 
               programs.obs-studio = {
                 enable = true;
-                plugins = with pinned-pkgs.obs-studio-plugins; [ obs-nvfbc ];
+                plugins = with pinned-pkgs.obs-studio-plugins; [
+                  obs-nvfbc
+                  wlrobs
+                ];
               };
 
               programs.chromium = {
                 enable = true;
                 commandLineArgs = [
-                  "--password-store=kwallet5"
+                  "--use-angle=vulkan"
+                  "--use-cmd-decorder=passthrough" # force xwayland
                 ];
               };
 
@@ -94,8 +99,15 @@
                 audacity
 
                 # social/entertainment
-                ferdi
-                master-pkgs.discord
+                (pkgs.symlinkJoin {
+                  name = "ferdi";
+                  paths = [ pkgs.ferdi ];
+                  buildInputs = [ pkgs.makeWrapper ];
+                  postBuild = ''
+                    wrapProgram $out/bin/ferdi \
+                      --add-flags "--enable-features=UseOzonePlatform --ozone-platform=wayland"
+                  '';
+                })
                 spotify-unwrapped
                 (lutris.overrideAttrs (_: { buildInputs = [ xdelta ]; }))
 

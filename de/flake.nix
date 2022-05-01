@@ -16,20 +16,18 @@
 
         launch-hikari = pkgs.writeScriptBin "launch-hikari" ''
           #!/usr/bin/env bash
-          
+
           # neofetch needs theses to detect hikari
           export XDG_CURRENT_DESKTOP=hikari
           export XDG_SESSION_DESKTOP=hikari
 
           # enable wob
-          export WOBSOCK=$XDG_RUNTIME_DIR/wob.sock
-          rm -f "$WOBSOCK" && mkfifo "$WOBSOCK"
-          tail -f "$WOBSOCK" | xob &
-          export WOB_PROCESS=$!
+          export WOBSOCK="$XDG_RUNTIME_DIR"/wob.sock
 
-          dbus-run-session hikari
+          # fix wayland on nvidia
+          export WLR_NO_HARDWARE_CURSORS=1
 
-          pkill "$WOB_PROCESS"
+          dbus-launch hikari
         '';
       in
       {
@@ -39,7 +37,7 @@
           launch-hikari
 
           wl-clipboard
-          xob # wob
+          wob
           brightnessctl
           pamixer
 
@@ -54,6 +52,8 @@
           text = ''
             #!/usr/bin/env bash
 
+            rm -f "$WOBSOCK" && mkfifo "$WOBSOCK"
+            (tail -f "$WOBSOCK" | wob) &
           '';
         };
 
@@ -81,6 +81,15 @@
 
         services.flameshot = {
           enable = true;
+          package = (pkgs.symlinkJoin {
+            name = "flameshot";
+            paths = [ pkgs.flameshot ];
+            buildInputs = [ pkgs.makeWrapper ];
+            postBuild = ''
+              wrapProgram $out/bin/flameshot \
+                --set XDG_CURRENT_DESKTOP sway
+            '';
+          });
         };
 
         programs.mpv = {
@@ -117,12 +126,6 @@
 
           # enable wayland for firefox
           MOZ_ENABLE_WAYLAND = 1;
-        };
-
-        programs.zsh.shellGlobalAliases = {
-          # flameshot works on wlroots based compositors but the developers
-          # officially only support sway. So we trick it.
-          "flameshot" = "XDG_CURRENT_DESKTOP=sway flameshot";
         };
 
         gtk = {

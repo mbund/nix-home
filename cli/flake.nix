@@ -7,16 +7,16 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    # helix = {
-    #   url = "github:helix-editor/helix/22.03";
-    #   inputs = {
-    #     nixpkgs.follows = "nixpkgs";
-    #     nixCargoIntegrations.inputs = {
-    #       nixpkgs.follows = "nixpkgs";
-    #       dream2nix.inputs.nixpkgs.follows = "nixpkgs";
-    #     };
-    #   };
-    # };
+    helix = {
+      url = "github:helix-editor/helix/22.03";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        nixCargoIntegrations.inputs = {
+          nixpkgs.follows = "nixpkgs";
+          dream2nix.inputs.nixpkgs.follows = "nixpkgs";
+        };
+      };
+    };
 
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
     nixpkgs-master.url = "github:NixOS/nixpkgs/master";
@@ -49,7 +49,7 @@
           tmux
           rnix-lsp
           nixpkgs-fmt
-          # helix.defaultPackage.${system}
+          helix.defaultPackage.${system}
           inputs.nvim.defaultPackage.${pkgs.system}
 
           (nerdfonts.override {
