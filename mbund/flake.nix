@@ -10,9 +10,10 @@
     nixpkgs-stable.url = "github:NixOS/nixpkgs/nixos-21.11";
     nixpkgs-pinned.url = "github:NixOS/nixpkgs/nixos-unstable";
     nixpkgs-master.url = "github:NixOS/nixpkgs/master";
+    nur.url = "github:nix-community/NUR";
   };
 
-  outputs = { self, home-manager, ... }@mbund-inputs:
+  outputs = { self, home-manager, nur, ... }@mbund-inputs:
     let
       lib = mbund-inputs.nixpkgs-stable.lib;
 
@@ -38,8 +39,14 @@
       genMasterPkgs = system: import mbund-inputs.nixpkgs-master {
         inherit system;
         config.allowUnfreePredicate = pkg: builtins.elem (lib.getName pkg) [
-          "discord"
+          "code"
+          "vscode"
         ];
+      };
+
+      genNurpkgs = system: import mbund-inputs.nixpkgs-master {
+        inherit system;
+        overlays = [ nur.overlay ];
       };
 
     in
@@ -57,15 +64,16 @@
               stable-pkgs = genStablePkgs system;
               pinned-pkgs = genPinnedPkgs system;
               master-pkgs = genMasterPkgs system;
+              nurpkgs = genNurpkgs system;
 
               oneshotPkg = input: import input { inherit system; config = { allowUnfree = true; allowBroken = true; }; };
+
             in
             { config, ... }: ({
               imports = with inputs; [
                 common.home
                 cli.home
-                # plasma.home
-                de.home
+                mbund-gnome.home
                 firefox.home
                 signing.home
               ];
@@ -74,19 +82,16 @@
                 enable = true;
                 plugins = with pinned-pkgs.obs-studio-plugins; [
                   obs-nvfbc
-                  wlrobs
+                  obs-vkcapture
+                  obs-multi-rtmp
                 ];
               };
 
-              programs.chromium = {
-                enable = true;
-                commandLineArgs = [
-                  "--use-angle=vulkan"
-                  "--use-cmd-decorder=passthrough" # force xwayland
-                ];
+              dconf.settings = {
+                "org/gnome/settings-daemon/plugins/power" = {
+                  sleep-inactive-ac-type = "nothing";
+                };
               };
-
-              fonts.fontconfig.enable = true;
 
               home.packages = with pinned-pkgs; [
                 # audio/video
@@ -99,15 +104,7 @@
                 audacity
 
                 # social/entertainment
-                (pkgs.symlinkJoin {
-                  name = "ferdi";
-                  paths = [ pkgs.ferdi ];
-                  buildInputs = [ pkgs.makeWrapper ];
-                  postBuild = ''
-                    wrapProgram $out/bin/ferdi \
-                      --add-flags "--enable-features=UseOzonePlatform --ozone-platform=wayland"
-                  '';
-                })
+                master-pkgs.ferdi
                 spotify-unwrapped
                 (lutris.overrideAttrs (_: { buildInputs = [ xdelta ]; }))
 
@@ -121,14 +118,15 @@
                 onlyoffice-bin
                 zoom
                 gnucash
-                zathura
                 graphviz
                 xdot
                 dot2tex
                 liberation_ttf
+                pitivi
+                libsForQt5.kdenlive
 
                 # programming
-                vscode-fhs
+                master-pkgs.vscode-fhs
                 godot
                 ghidra
 
@@ -164,7 +162,7 @@
                 cli.home
                 # plasma.home
                 firefox.home
-                de.home
+                mbund-gnome.home
                 signing.home
               ];
 

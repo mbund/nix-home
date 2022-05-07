@@ -50,7 +50,7 @@
           rnix-lsp
           nixpkgs-fmt
           helix.defaultPackage.${system}
-          inputs.nvim.defaultPackage.${pkgs.system}
+          # inputs.nvim.defaultPackage.${pkgs.system}
 
           (nerdfonts.override {
             fonts = [
@@ -108,7 +108,6 @@
 
           [editor]
           line-number = "relative"
-          mouse = false
         '';
 
         home.sessionVariables = {
