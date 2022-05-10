@@ -9,7 +9,6 @@
     common.url = "./common";
     cli.url = "./cli";
     plasma.url = "./plasma";
-    firefox.url = "./firefox";
     signing.url = "./signing";
     mbund-gnome.url = "./mbund-gnome";
 

@@ -19,12 +19,12 @@
       in
       {
         home.packages = with pkgs; [
-          # wayland apps
           kitty
           imv
           flameshot
           mpv
           zathura
+          helvum
 
           # gtk apps
           fragments
@@ -40,6 +40,7 @@
 
         programs.chromium = {
           enable = true;
+          package = pkgs.ungoogled-chromium;
           commandLineArgs = [
             "--enable-features=UseOzonePlatform"
             "--ozone-platform=wayland"
@@ -59,6 +60,9 @@
           "org/gnome/desktop/wm/preferences" = {
             resize-with-right-button = true;
             button-layout = ":close";
+          };
+          "org/gnome/shell" = {
+            disable-user-extensions = false; # enable gnome extensions
           };
           "org/gnome/desktop/input-sources" = {
             xkb-options = [ "caps:escape_shifted_capslock" ];

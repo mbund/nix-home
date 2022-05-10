@@ -47,6 +47,9 @@
       genNurpkgs = system: import mbund-inputs.nixpkgs-master {
         inherit system;
         overlays = [ nur.overlay ];
+        config.allowUnfreePredicate = pkg: builtins.elem (lib.getName pkg) [
+                "ninja-cookie" # SPDX-License-Identifier: Propietary OR GPL-3.0-or-later
+        ];
       };
 
     in
@@ -74,22 +77,31 @@
                 common.home
                 cli.home
                 mbund-gnome.home
-                firefox.home
                 signing.home
               ];
-
+              
               programs.obs-studio = {
                 enable = true;
-                plugins = with pinned-pkgs.obs-studio-plugins; [
-                  obs-nvfbc
-                  obs-vkcapture
-                  obs-multi-rtmp
-                ];
+                # plugins = with pinned-pkgs.obs-studio-plugins; [
+                #   obs-nvfbc
+                #   obs-multi-rtmp
+                # ];
               };
 
               dconf.settings = {
                 "org/gnome/settings-daemon/plugins/power" = {
                   sleep-inactive-ac-type = "nothing";
+                };
+                "org/gnome/shell" = {
+                  # gnome dock, from left to right
+                  favorite-apps = [
+                    "com.rafaelmardojai.Blanket.desktop"
+                    "ferdi.desktop"
+                    "org.gnome.Nautilus.desktop"
+                    "net.lutris.Lutris.desktop"
+                    "librewolf.desktop"
+                    "kitty.desktop"
+                  ];
                 };
               };
 
@@ -102,10 +114,11 @@
                 playerctl
                 vlc
                 audacity
+                pitivi
+                libsForQt5.kdenlive
 
                 # social/entertainment
                 master-pkgs.ferdi
-                spotify-unwrapped
                 (lutris.overrideAttrs (_: { buildInputs = [ xdelta ]; }))
 
                 # art
@@ -116,14 +129,11 @@
 
                 # school/productivity
                 onlyoffice-bin
-                zoom
                 gnucash
                 graphviz
                 xdot
                 dot2tex
                 liberation_ttf
-                pitivi
-                libsForQt5.kdenlive
 
                 # programming
                 master-pkgs.vscode-fhs
@@ -135,6 +145,7 @@
                 virt-manager
 
                 # misc
+                librewolf
                 aspell
                 aspellDicts.en
                 qbittorrent
@@ -161,7 +172,6 @@
                 common.home
                 cli.home
                 # plasma.home
-                firefox.home
                 mbund-gnome.home
                 signing.home
               ];
