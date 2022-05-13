@@ -18,15 +18,14 @@
         localfile = path: config.lib.file.mkOutOfStoreSymlink ("${config.home.homeDirectory}/nix-home/" + path);
       in
       {
-        home.packages = with pkgs; [
+        home.packages = (with pkgs; [
           kitty
           imv
           flameshot
           mpv
           zathura
           helvum
-
-          # gtk apps
+          librewolf
           fragments
           blanket
           gaphor
@@ -34,10 +33,45 @@
           kooha
           metadata-cleaner
           mousai
-        ];
+        ]) ++ (with pkgs.gnome; with pkgs.gnomeExtensions; [
+            gnome-tweaks
+            dconf-editor
+            undecorate-window-for-wayland
+            blur-my-shell
+            gsconnect
+            vitals
+          ]);
 
         xdg.configFile."kitty/kitty.conf".source = localfile "mbund-gnome/kitty.conf";
+            
+        xdg.mimeApps.enable = true;
+        xdg.mimeApps.defaultApplications = {
+          "application/pdf" = [
+            "org.gnome.Evince.desktop" # Gnome default pdf viewer
+            "org.pwmt.zathura-pdf-mupdf.desktop"
+            "librewolf.desktop"
+            "chromium.desktop"
+          ];
+          "video/x-matroska" = [ "mpv.desktop" ];
+          "image/gif" = [ "imv-folder.desktop" ];
 
+          "x-scheme-handler/http" = [ "librewolf.desktop" ];
+          "x-scheme-handler/https" = [ "librewolf.desktop" ];
+          "x-scheme-handler/chrome" = [ "librewolf.desktop" ];
+          "text/html" = [ "librewolf.desktop" ];
+          "application/x-extension-htm" = [ "librewolf.desktop" ];
+          "application/x-extension-html" = [ "librewolf.desktop" ];
+          "application/x-extension-shtml" = [ "librewolf.desktop" ];
+          "application/xhtml+xml" = [ "librewolf.desktop" ];
+          "application/x-extension-xhtml" = [ "librewolf.desktop" ];
+          "application/x-extension-xht" = [ "librewolf.desktop" ];
+
+          "x-scheme-handler/ferdi" = [ "ferdi.desktop" ];
+          "x-scheme-handler/sidequest" = [ "SideQuest.desktop" ];
+          "x-scheme-handler/sms" = "org.gnome.Shell.Extensions.GSConnect.desktop";
+          "x-scheme-handler/tel" = "org.gnome.Shell.Extensions.GSConnect.desktop";
+        };
+            
         programs.chromium = {
           enable = true;
           package = pkgs.ungoogled-chromium;
@@ -79,7 +113,7 @@
             toggle-tiled-right = [ "<Super><Alt>C" ];
           };
           "org/gnome/desktop/wm/keybindings" = {
-            close = [ "<Super>C" ];
+            close = [ "<Super>C" "<Super>Q" ];
 
             raise = [ "<Super>R" ];
             lower = [ "<Super>G" ];
@@ -129,6 +163,11 @@
           };
           "org/gnome/settings-daemon/plugins/media-keys" = {
             screensaver = [ "<Super>P" ];
+            help = [ ];
+            custom-keybindings = [
+              "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/"
+              "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom1/"
+            ];
           };
           "org/gnome/shell/keybindings" = {
             switch-to-application-1 = [ ];
@@ -141,7 +180,29 @@
             switch-to-application-8 = [ ];
             switch-to-application-9 = [ ];
           };
+          
+          "org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0" = {
+            binding = "<Super>Return";
+            command = "kitty";
+            name = "Launch terminal";
+          };
+          "org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom1" = {
+            binding = "<Super>B";
+            command = "librewolf";
+            name = "Launch browser";
+          };
         };
+            
+        xdg.configFile."autostart/AutostartGnomeExtensions.desktop".text = ''
+          [Desktop Entry]
+          Name=AutostartGnomeExtensions
+          GenericName=Gnome extenion script
+          Comment=Uses gsettings to automatically start gnome extensions on login
+          Exec=gsettings set org.gnome.shell disable-user-extensions false
+          Terminal=false
+          Type=Application
+          X-GNOME-Autostart-enabled=true
+        '';
 
         home.pointerCursor = {
           gtk.enable = true;

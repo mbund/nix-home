@@ -27,7 +27,14 @@
         comma
         inputs.nix-autobahn.defaultPackage.${pkgs.system}
       ];
+      
+      # remove all files ending with .hm-remove
+      # useful for `home-manager switch -b hm-remove` when you don't care about overwriting
+      home.activation.removeOverwrite = lib.hm.dag.entryAfter ["writeBoundary"] ''
+        $DRY_RUN_CMD find ${config.home.homeDirectory} -type f -name "*.hm-remove" -exec rm {} \;
+      '';
 
+      # Create custom command not found handler by searching through nix-index for it
       programs.zsh.initExtra = ''
         command_not_found_handle () {
           # taken from http://www.linuxjournal.com/content/bash-command-not-found
