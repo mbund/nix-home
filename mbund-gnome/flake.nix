@@ -26,6 +26,7 @@
           zathura
           helvum
           librewolf
+          xorg.xeyes
           fragments
           blanket
           gaphor
@@ -36,10 +37,12 @@
         ]) ++ (with pkgs.gnome; with pkgs.gnomeExtensions; [
             gnome-tweaks
             dconf-editor
+
             undecorate-window-for-wayland
             blur-my-shell
             gsconnect
             vitals
+            expandable-notifications
           ]);
 
         xdg.configFile."kitty/kitty.conf".source = localfile "mbund-gnome/kitty.conf";
@@ -100,6 +103,18 @@
           };
           "org/gnome/shell" = {
             disable-user-extensions = false; # enable gnome extensions
+            enabled-extensions = [
+              # default extensions included in gnome
+              "launch-new-instance@gnome-shell-extensions.gcampax.github.com"
+              "drive-menu@gnome-shell-extensions.gcampax.github.com"
+
+              # additional extensions
+              "undecorate@tabdeveloper.com"
+              "blur-my-shell@aunetx"
+              "gsconnect@andyholmes.github.io"
+              "Vitals@CoreCoding.com"
+              "expandable-notifications@kaan.g.inam.org"
+            ];
           };
           "org/gnome/desktop/sound" = {
             allow-volume-above-100-percent = true;
