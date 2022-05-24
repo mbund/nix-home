@@ -47,9 +47,7 @@
       genNurpkgs = system: import mbund-inputs.nixpkgs-master {
         inherit system;
         overlays = [ nur.overlay ];
-        config.allowUnfreePredicate = pkg: builtins.elem (lib.getName pkg) [
-                "ninja-cookie" # SPDX-License-Identifier: Propietary OR GPL-3.0-or-later
-        ];
+        config.allowUnfreePredicate = pkg: builtins.elem (lib.getName pkg) [ ];
       };
 
     in
@@ -79,7 +77,7 @@
                 mbund-gnome.home
                 signing.home
               ];
-              
+
               programs.obs-studio = {
                 enable = true;
                 # plugins = with pinned-pkgs.obs-studio-plugins; [
@@ -118,7 +116,15 @@
                 libsForQt5.kdenlive
 
                 # social/entertainment
-                master-pkgs.ferdi
+                (pkgs.symlinkJoin {
+                  name = "ferdi";
+                  paths = [ pkgs.ferdi ];
+                  buildInputs = [ pkgs.makeWrapper ];
+                  postBuild = ''
+                    wrapProgram $out/bin/ferdi \
+                      --add-flags "--enable-features=UseOzonePlatform --ozone-platform=wayland"
+                  '';
+                })
                 (lutris.overrideAttrs (_: { buildInputs = [ xdelta ]; }))
 
                 # art
