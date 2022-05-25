@@ -43,7 +43,6 @@
           wget
           zip
           unzip
-          xclip
           htop
           ripgrep
           tmux
@@ -51,13 +50,6 @@
           nixpkgs-fmt
           helix.defaultPackage.${system}
           # inputs.nvim.defaultPackage.${pkgs.system}
-
-          (nerdfonts.override {
-            fonts = [
-              "SourceCodePro" # Nerdfonts: Sauce Code Pro -> Source Code Pro
-              "Hasklig" # Nerdfonts: Hasklug -> Hasklig -> Source Code Pro with ligatures
-            ];
-          })
         ];
 
         programs.lf = {

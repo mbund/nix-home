@@ -156,6 +156,13 @@
                 aspellDicts.en
                 qbittorrent
                 tor
+                tor-browser-bundle-bin
+                (nerdfonts.override {
+                  fonts = [
+                    "SourceCodePro" # Nerdfonts: Sauce Code Pro -> Source Code Pro
+                    "Hasklig" # Nerdfonts: Hasklug -> Hasklig -> Source Code Pro with ligatures
+                  ];
+                })
               ];
 
             });
