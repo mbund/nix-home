@@ -93,10 +93,7 @@
                 "org/gnome/shell" = {
                   # gnome dock, from left to right
                   favorite-apps = [
-                    "com.rafaelmardojai.Blanket.desktop"
-                    "ferdi.desktop"
                     "org.gnome.Nautilus.desktop"
-                    "net.lutris.Lutris.desktop"
                     "librewolf.desktop"
                     "kitty.desktop"
                   ];
@@ -165,6 +162,11 @@
                 })
               ];
 
+              home.sessionVariables = {
+                "EDITOR" = "hx";
+                "VISUAL" = "hx";
+              };
+
             });
         };
 
@@ -224,8 +226,8 @@
               ];
 
               home.sessionVariables = {
-                "EDITOR" = "nvim";
-                "VISUAL" = "nvim";
+                "EDITOR" = "hx";
+                "VISUAL" = "hx";
               };
 
               home.file.".bash_profile".text = ''
@@ -237,6 +239,35 @@
             });
         };
 
+        "mbund@thunder" = home-manager.lib.homeManagerConfiguration rec {
+          system = "x86_64-linux";
+          stateVersion = "22.05";
+          homeDirectory = "/home/mbund";
+          username = "mbund";
+          configuration =
+            let
+              inputs = parentInputs // mbund-inputs;
+              stable-pkgs = genStablePkgs system;
+              pinned-pkgs = genPinnedPkgs system;
+              master-pkgs = genMasterPkgs system;
+            in
+            { config, ... }: ({
+              imports = with inputs; [
+                common.home
+                cli.home
+                signing.home
+              ];
+
+              home.packages = with pinned-pkgs; [
+              ];
+
+              home.sessionVariables = {
+                "EDITOR" = "hx";
+                "VISUAL" = "hx";
+              };
+
+            });
+        };
       };
     };
 }

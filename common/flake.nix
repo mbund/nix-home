@@ -23,9 +23,9 @@
         nix-tree
         nix-index
         nix-prefetch-scripts
-        nixops
         comma
-        inputs.nix-autobahn.defaultPackage.${pkgs.system}
+        # nixops
+        # inputs.nix-autobahn.defaultPackage.${pkgs.system}
       ];
       
       # remove all files ending with .hm-remove

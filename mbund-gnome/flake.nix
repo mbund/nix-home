@@ -23,6 +23,7 @@
           imv
           flameshot
           mpv
+          celluloid
           zathura
           helvum
           librewolf
